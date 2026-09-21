@@ -12,11 +12,9 @@
 
 backend:
   name: github
-  # TODO: replace with the real repository, e.g. igor/pjs-sajt
-  repo: OWNER/pjs-sajt
+  repo: Spaka92/pjs-sajt
   branch: main
-  # TODO: paste the Cloudflare Worker URL from the auth setup
-  base_url: https://YOUR-WORKER.workers.dev
+  base_url: https://sveltia-cms-auth.spaka.workers.dev
 
 # Uploaded images land here; the site references them from /images/uploads
 media_folder: "src/images/uploads"
