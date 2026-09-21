@@ -1,0 +1,13 @@
+# Build output — regenerated every time, never committed
+_site/
+
+# Dependencies
+node_modules/
+
+# Editor and OS noise
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Vercel
+.vercel
