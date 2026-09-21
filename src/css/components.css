@@ -149,12 +149,87 @@
 
 /* ---------- PROSE + PANEL ----------------------------------------- */
 
+/* Baseline rhythm: any element after another gets the same gap,
+   so paragraphs, lists, quotes and headings all line up — instead
+   of relying on * { margin: 0 } and every combination looking
+   cramped or oversized depending on what happens to precede it. */
+.prose > * + * {
+  margin-top: var(--space-md);
+}
+
 .prose p {
   color: var(--color-muted);
 }
 
 .prose p:first-of-type {
   margin-top: var(--space-md);
+}
+
+.prose h2,
+.prose h3 {
+  color: var(--color-ink);
+  margin-top: var(--space-xl);
+}
+
+.prose h2 { font-size: var(--text-xl); }
+.prose h3 { font-size: var(--text-lg); }
+
+/* Pull whatever sits right under a heading back in close to it —
+   the big gap belongs above the heading, not below it. */
+.prose h2 + *,
+.prose h3 + * {
+  margin-top: var(--space-sm);
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.3em;
+  color: var(--color-muted);
+}
+
+.prose ul li {
+  position: relative;
+  padding-left: 1.3em;
+}
+
+.prose ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-gold);
+}
+
+.prose ol { list-style: decimal; }
+
+.prose li + li { margin-top: var(--space-xs); }
+
+.prose strong {
+  color: var(--color-ink);
+  font-weight: 800;
+}
+
+.prose a:not(.btn) {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: var(--color-border);
+  text-underline-offset: 3px;
+}
+
+.prose a:not(.btn):hover { text-decoration-color: currentColor; }
+
+.prose blockquote {
+  padding-left: var(--space-md);
+  border-left: 3px solid var(--brand-gold);
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+.prose img {
+  border-radius: var(--radius);
 }
 
 .panel {
