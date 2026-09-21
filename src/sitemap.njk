@@ -1,0 +1,29 @@
+---
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- set stranice = ["/", "/o-nama/", "/tvoj-agronom/", "/3p/", "/kako-pomazemo/", "/edukacije/", "/fondovi/", "/vesti/", "/postani-clan/", "/kontakt/", "/dokumenta/"] %}
+{%- for u in stranice %}
+  <url><loc>{{ site.url }}{{ u }}</loc></url>
+{%- endfor %}
+{#- Every вест, догађај, едукација and конкурс adds itself. This is
+    why the hand-written sitemap had to go: it went stale the moment
+    someone added a news item. #}
+{%- for item in collections.vesti %}
+  <url><loc>{{ site.url }}{{ item.url }}</loc><lastmod>{{ item.data.date | datumISO }}</lastmod></url>
+{%- endfor %}
+{%- for item in collections.dogadjajiPredstojeci %}
+  <url><loc>{{ site.url }}{{ item.url }}</loc></url>
+{%- endfor %}
+{%- for item in collections.dogadjajiProsli %}
+  <url><loc>{{ site.url }}{{ item.url }}</loc></url>
+{%- endfor %}
+{%- for item in collections.edukacije %}
+  <url><loc>{{ site.url }}{{ item.url }}</loc></url>
+{%- endfor %}
+{%- for item in collections.konkursi %}
+  <url><loc>{{ site.url }}{{ item.url }}</loc></url>
+{%- endfor %}
+</urlset>

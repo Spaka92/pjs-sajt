@@ -1,0 +1,55 @@
+{# ============================================================
+   BASE.NJK — the shell every page is poured into.
+
+   A page sets `title`, `description` etc. in its front matter,
+   then everything between {% block content %} tags lands where
+   {{ content }} appears below.
+
+   This replaces the old fetch()-based partial loading. The
+   header and footer are now stitched in at BUILD time, so the
+   HTML a visitor receives is already complete — which is the
+   whole reason for the rebuild.
+   ============================================================ #}
+<!DOCTYPE html>
+<html lang="sr-Cyrl-RS">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>{% if naslovStranice %}{{ naslovStranice }} — {{ site.skraceno }}{% else %}{{ site.skraceno }} — {{ site.naziv }}{% endif %}</title>
+  <meta name="description" content="{{ opisStranice or site.opis }}">
+
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  {# Social preview. Two lines, and it turns a bare pasted link
+     into a card with the logo on Facebook and Viber. #}
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ naslovStranice or site.naziv }}">
+  <meta property="og:description" content="{{ opisStranice or site.opis }}">
+  <meta property="og:image" content="{{ site.url }}/images/pjs-mark.png">
+  <meta property="og:locale" content="sr_RS">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+</head>
+<body id="top">
+
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <a class="skip-link" href="#main">Прескочи на садржај</a>
+
+  {% include "header.njk" %}
+
+  <main id="main">
+    {{ content | safe }}
+  </main>
+
+  {% include "footer.njk" %}
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

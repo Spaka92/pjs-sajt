@@ -1,0 +1,297 @@
+# ============================================================
+# SVELTIA CMS — подешавања
+#
+# This file defines the entire editing screen. Every `label:` is
+# what an editor sees; every `name:` is the field name written
+# into the Markdown file. Labels are Cyrillic, names stay ASCII.
+#
+# This is the answer to "we want Elementor": editors get forms
+# they cannot break the design with, rather than a page builder
+# they can.
+# ============================================================
+
+backend:
+  name: github
+  # TODO: replace with the real repository, e.g. igor/pjs-sajt
+  repo: OWNER/pjs-sajt
+  branch: main
+  # TODO: paste the Cloudflare Worker URL from the auth setup
+  base_url: https://YOUR-WORKER.workers.dev
+
+# Uploaded images land here; the site references them from /images/uploads
+media_folder: "src/images/uploads"
+public_folder: "/images/uploads"
+
+# Interface language
+locale: sr
+
+# Editors save straight to the branch. Turn on editorial_workflow
+# later if you want a draft/review step — it adds a stage that a
+# six-person association probably does not need yet.
+publish_mode: simple
+
+collections:
+
+  # ----------------------------------------------------------
+  # ВЕСТИ
+  # ----------------------------------------------------------
+  - name: vesti
+    label: Вести
+    label_singular: Вест
+    folder: "src/vesti"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}} — {{date | date('DD.MM.YYYY.')}}"
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: Наслов, widget: string }
+      - { name: date, label: Датум, widget: datetime, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY.", time_format: false }
+      - name: summary
+        label: Кратак опис
+        widget: text
+        hint: "Две до три реченице. Ово се види на почетној страници и у Google резултатима."
+      - name: image
+        label: Насловна слика
+        widget: image
+        required: false
+        hint: "Није обавезно. Слику пре качења смањите — фотографија са телефона је превелика."
+      - name: image_alt
+        label: Опис слике
+        widget: string
+        required: false
+        hint: "Кратак опис шта је на слици. Читају га слепи корисници и Google."
+      - name: featured
+        label: Прикажи на почетној страници
+        widget: boolean
+        default: true
+        required: false
+      - { name: body, label: Текст вести, widget: markdown }
+
+  # ----------------------------------------------------------
+  # ДОГАЂАЈИ
+  # ----------------------------------------------------------
+  - name: dogadjaji
+    label: Догађаји
+    label_singular: Догађај
+    folder: "src/dogadjaji"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}} — {{date | date('DD.MM.YYYY.')}}"
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: Назив догађаја, widget: string }
+      - name: date
+        label: Датум и време
+        widget: datetime
+        format: "YYYY-MM-DDTHH:mm"
+        date_format: "DD.MM.YYYY."
+        time_format: "HH:mm"
+        hint: "Након овог датума догађај се сам премешта у архиву. Не морате ништа брисати."
+      - { name: end_date, label: Завршетак, widget: datetime, required: false, format: "YYYY-MM-DDTHH:mm", date_format: "DD.MM.YYYY.", time_format: "HH:mm" }
+      - { name: location, label: Место, widget: string }
+      - name: type
+        label: Врста
+        widget: select
+        options: [Предавање, Радионица, Теренска обука, Сајам, Манифестација]
+      - { name: summary, label: Кратак опис, widget: text }
+      - { name: image, label: Слика, widget: image, required: false }
+      - { name: registration_url, label: Линк за пријаву, widget: string, required: false }
+      - { name: body, label: Детаљи, widget: markdown, required: false }
+
+  # ----------------------------------------------------------
+  # ЕДУКАЦИЈЕ
+  # ----------------------------------------------------------
+  - name: edukacije
+    label: Едукације
+    label_singular: Едукација
+    folder: "src/edukacije"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}} — {{format}}"
+    fields:
+      - { name: title, label: Наслов, widget: string }
+      - name: format
+        label: Формат
+        widget: select
+        options: [Стручно предавање, Радионица, Теренска обука, Видео едукација, Приручник]
+      - { name: date, label: Датум, widget: datetime, required: false, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY.", time_format: false }
+      - { name: location, label: Место, widget: string, required: false }
+      - { name: summary, label: Кратак опис, widget: text }
+      - name: file
+        label: Приручник (PDF)
+        widget: file
+        required: false
+        hint: "PDF документ за преузимање."
+      - { name: video_url, label: Линк ка видеу, widget: string, required: false }
+      - { name: body, label: Садржај, widget: markdown, required: false }
+
+  # ----------------------------------------------------------
+  # КОНКУРСИ
+  # ----------------------------------------------------------
+  - name: konkursi
+    label: Конкурси и подстицаји
+    label_singular: Конкурс
+    folder: "src/konkursi"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}} — {{status}}"
+    sortable_fields: [deadline, title]
+    fields:
+      - { name: title, label: Назив конкурса, widget: string }
+      - name: source
+        label: Извор
+        widget: select
+        options: [Министарство пољопривреде, IPARD, Локални подстицаји, Донаторски програм, Остало]
+      - name: deadline
+        label: Рок за пријаву
+        widget: datetime
+        required: false
+        format: "YYYY-MM-DD"
+        date_format: "DD.MM.YYYY."
+        time_format: false
+        hint: "Након овог датума рок се на сајту приказује као истекао."
+      - name: status
+        label: Статус
+        widget: select
+        options: [Отворен, Ускоро, Затворен]
+        default: Отворен
+      - { name: summary, label: Кратак опис, widget: text }
+      - { name: external_url, label: Линк ка конкурсу, widget: string, required: false }
+      - { name: body, label: Детаљи и услови, widget: markdown, required: false }
+
+  # ----------------------------------------------------------
+  # ТИМ
+  # ----------------------------------------------------------
+  - name: tim
+    label: Тим
+    label_singular: Члан тима
+    folder: "src/tim"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{order}}. {{name}} — {{role}}"
+    sortable_fields: [order, name]
+    fields:
+      - { name: name, label: Име и презиме, widget: string }
+      - { name: role, label: Функција у удружењу, widget: string }
+      - { name: speciality, label: Стручна област, widget: string, required: false }
+      - name: photo
+        label: Фотографија
+        widget: image
+        required: false
+        hint: "Ако нема фотографије, приказује се прво слово имена. Обавезна је сагласност особе."
+      - { name: email, label: Имејл, widget: string, required: false }
+      - name: phone
+        label: Телефон
+        widget: string
+        required: false
+        hint: "Размислите пре објављивања приватног броја — јавни бројеви завршавају на spam листама."
+      - name: order
+        label: Редослед приказа
+        widget: number
+        value_type: int
+        default: 99
+        hint: "1 се приказује први."
+      - { name: body, label: Кратка биографија, widget: markdown, required: false }
+
+  # ----------------------------------------------------------
+  # ПОДЕШАВАЊА
+  # ----------------------------------------------------------
+  - name: podesavanja
+    label: Подешавања
+    files:
+
+      - name: site
+        label: Подаци удружења
+        file: "src/_data/site.json"
+        fields:
+          - { name: naziv, label: Назив удружења, widget: string }
+          - { name: skraceno, label: Скраћеница, widget: string }
+          - { name: pun_naziv, label: Пун назив, widget: string }
+          - name: opis
+            label: Опис сајта
+            widget: text
+            hint: "Ово Google приказује испод наслова у резултатима претраге."
+          - name: url
+            label: Адреса сајта
+            widget: string
+            hint: "Без косе црте на крају. Пример: https://pjs.rs"
+          - { name: adresa, label: Адреса, widget: string }
+          - { name: telefon, label: Телефон, widget: string, required: false }
+          - { name: email, label: Имејл, widget: string }
+          - { name: radno_vreme, label: Радно време, widget: string }
+          - { name: facebook, label: Facebook, widget: string, required: false }
+          - { name: instagram, label: Instagram, widget: string, required: false }
+          - { name: youtube, label: YouTube, widget: string, required: false }
+          - name: mapa_embed
+            label: Google Maps линк
+            widget: string
+            required: false
+            hint: "На maps.google.com: Share → Embed a map → копирајте само адресу из src=\"...\""
+          - { name: clanarina_tekst, label: Текст о чланарини, widget: string }
+          - { name: ips_qr, label: IPS QR код, widget: image, required: false }
+          - name: statistika
+            label: Бројке на почетној
+            widget: list
+            fields:
+              - { name: broj, label: Број, widget: number, value_type: int }
+              - { name: opis, label: Опис, widget: string }
+          - name: finansiranje
+            label: Трака финансирања (врх сваке странице)
+            widget: object
+            hint: "Приказ логотипа Европске уније је обавеза по правилима пројекта — не уклањајте га без провере."
+            fields:
+              - { name: tekst, label: Текст, widget: string }
+              - name: logoi
+                label: Логотипи
+                widget: list
+                label_singular: Логотип
+                summary: "{{naziv}}"
+                fields:
+                  - { name: naziv, label: Назив, widget: string }
+                  - { name: logo, label: Слика, widget: image }
+                  - { name: url, label: Веб адреса, widget: string, required: false }
+          - name: partneri_naslov
+            label: Наслов изнад партнера
+            widget: string
+            required: false
+          - name: partneri
+            label: Партнери
+            widget: list
+            label_singular: Партнер
+            summary: "{{naziv}}"
+            hint: "Приказују се у покретној траци изнад подножја."
+            fields:
+              - { name: naziv, label: Назив, widget: string }
+              - name: logo
+                label: Логотип
+                widget: image
+                hint: "PNG са провидном позадином, исте висине као остали да однос величина остане тачан."
+              - name: url
+                label: Веб адреса
+                widget: string
+                required: false
+                hint: "Ако унесете, логотип постаје линк ка сајту партнера."
+
+      - name: nav
+        label: Мени
+        file: "src/_data/nav.json"
+        fields:
+          - name: glavni
+            label: Главни мени
+            widget: list
+            fields:
+              - { name: labela, label: Назив, widget: string }
+              - { name: url, label: Адреса, widget: string, hint: "Са косом цртом с обе стране, нпр. /o-nama/" }
+              - { name: istaknuto, label: Истакни златном тачком, widget: boolean, default: false }
+          - name: podnozje_sadrzaj
+            label: "Подножје — Садржај"
+            widget: list
+            fields:
+              - { name: labela, label: Назив, widget: string }
+              - { name: url, label: Адреса, widget: string }
+          - name: podnozje_clanstvo
+            label: "Подножје — Чланство"
+            widget: list
+            fields:
+              - { name: labela, label: Назив, widget: string }
+              - { name: url, label: Адреса, widget: string }

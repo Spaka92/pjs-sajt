@@ -1,0 +1,10 @@
+{
+  "layout": "article.njk",
+  "nadredjeni": "Догађаји",
+  "nadredjeniUrl": "/edukacije/",
+  "permalink": "/dogadjaji/{{ page.fileSlug }}/",
+  "eleventyComputed": {
+    "naslovStranice": "{{ title }}",
+    "opisStranice": "{{ summary }}"
+  }
+}

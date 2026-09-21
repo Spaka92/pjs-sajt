@@ -1,0 +1,114 @@
+---
+layout: base.njk
+permalink: /postani-clan/
+naslovStranice: "Постани члан"
+opisStranice: "Зашто постати члан, погодности чланства, онлајн приступница, модел уплатнице и IPS QR код за плаћање чланарине."
+---
+
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="/">Почетна</a> &rsaquo; Постани члан</p>
+    <p class="eyebrow">Постани члан</p>
+    <h1 class="page-hero__title">Приступница и упутство за уплату</h1>
+    <p class="page-hero__lede">Попуните приступницу, уплатите чланарину, и стручна подршка вам је на располагању.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <header class="section__head reveal">
+      <p class="eyebrow">Погодности</p>
+      <h2 class="section__title">Зашто постати члан</h2>
+    </header>
+    <ul class="promises reveal">
+      <li>Бесплатан стручни савет агронома</li>
+      <li>Дијагностика болести и штеточина</li>
+      <li>Обилазак газдинства на терену</li>
+      <li>Проверене информације о конкурсима</li>
+      <li>Попусти код партнерских компанија</li>
+      <li>Едукације и приручници</li>
+      <li>Заступање интереса — агро адвокат</li>
+      <li>Промоција вашег газдинства</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="grid--feature tilt-scene">
+
+      <div class="reveal">
+        <p class="eyebrow">Онлајн приступница</p>
+        <h2 class="section__title">Пријавите се</h2>
+
+        {# TODO: FORMSPREE
+           1. Направите форму на formspree.io
+           2. Овде додајте: action="https://formspree.io/f/ВАШ-КОД" method="POST"
+           3. У js/main.js, у setUpForm, обришите event.preventDefault();
+           До тада форма само проверава поља и не шаље ништа. #}
+        <form class="form spotlight" id="quote-form" novalidate style="margin-top: var(--space-lg)">
+          <div class="field">
+            <label for="name">Име и презиме</label>
+            <input type="text" id="name" name="name" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="email">Имејл</label>
+            <input type="email" id="email" name="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="job">Чиме се бавите?</label>
+            <textarea id="job" name="job" rows="4" required></textarea>
+          </div>
+          <button class="btn magnetic" type="submit">Пошаљите пријаву</button>
+          <p class="form__status" id="form-status" role="status"></p>
+        </form>
+      </div>
+
+      <aside class="panel spotlight tilt reveal">
+        <h3 class="panel__title">Уплата чланарине</h3>
+        <ol class="steps">
+          <li>Попуните приступницу.</li>
+          <li>Уплатите чланарину по моделу уплатнице.</li>
+          <li>Картица и списак партнера стижу поштом.</li>
+        </ol>
+
+        {% if site.ips_qr %}
+          <div class="media" style="margin-top: var(--space-lg); aspect-ratio: 1 / 1; max-width: 12rem;">
+            <img src="{{ site.ips_qr }}" alt="IPS QR код за уплату чланарине"
+                 width="400" height="400" loading="lazy">
+          </div>
+        {% else %}
+          <p style="font-size: var(--text-sm); color: var(--color-muted); margin-top: var(--space-lg)">
+            <!-- TODO: IPS QR генерише банка на основу текућег рачуна удружења.
+                 Слику додати преко CMS-а у Подешавања → IPS QR код. -->
+            IPS QR код и модел уплатнице — у припреми.
+          </p>
+        {% endif %}
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container container--narrow">
+    <header class="section__head reveal">
+      <p class="eyebrow">Честа питања</p>
+      <h2 class="section__title">О чланству</h2>
+    </header>
+    <div class="faq reveal">
+      <details>
+        <summary>Колико износи чланарина?</summary>
+        <p>{{ site.clanarina_tekst }} <!-- TODO: унети тачан износ --></p>
+      </details>
+      <details>
+        <summary>Да ли постоји уговорна обавеза?</summary>
+        <p>Не. Чланство можете прекинути у било ком тренутку.</p>
+      </details>
+      <details>
+        <summary>Када добијам чланску картицу?</summary>
+        <p>Након прве уплате картица стиже на кућну адресу поштом.</p>
+      </details>
+    </div>
+  </div>
+</section>

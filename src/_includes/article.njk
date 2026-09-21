@@ -1,0 +1,82 @@
+{# ============================================================
+   ARTICLE.NJK
+   Layout for one вест / догађај / едукација / конкурс.
+   It sets `layout: base.njk` in its own front matter, so
+   Eleventy renders this first and then pours the result into
+   the shell. That is layout chaining — simpler than blocks.
+   ============================================================ #}
+---
+layout: base.njk
+---
+
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb">
+      <a href="/">Почетна</a> &rsaquo;
+      <a href="{{ nadredjeniUrl }}">{{ nadredjeni }}</a> &rsaquo; {{ title }}
+    </p>
+
+    <p class="eyebrow">
+      {%- if type %}{{ type }}
+      {%- elif format %}{{ format }}
+      {%- elif source %}{{ source }}
+      {%- else %}Вест{% endif -%}
+    </p>
+
+    <h1 class="page-hero__title">{{ title }}</h1>
+
+    <p class="page-hero__lede">
+      {%- if date %}{{ date | datumVremeSrp }}{% endif -%}
+      {%- if location %} · {{ location }}{% endif -%}
+      {%- if deadline %} · рок: {{ deadline | datumSrp }}{% endif -%}
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container container--narrow">
+
+    {% if image %}
+      <div class="media media--wide" style="margin-bottom: var(--space-xl)">
+        <img src="{{ image }}" alt="{{ image_alt or '' }}" width="1200" height="675">
+      </div>
+    {% endif %}
+
+    {% if summary %}
+      <p class="section__lede" style="margin-bottom: var(--space-lg)">{{ summary }}</p>
+    {% endif %}
+
+    <div class="prose">
+      {{ content | safe }}
+    </div>
+
+    {% if registration_url %}
+      <p style="margin-top: var(--space-xl)">
+        <a class="btn magnetic" href="{{ registration_url }}">Пријавите се</a>
+      </p>
+    {% endif %}
+
+    {% if external_url %}
+      <p style="margin-top: var(--space-xl)">
+        <a class="btn magnetic" href="{{ external_url }}">Отворите конкурс</a>
+      </p>
+    {% endif %}
+
+    {% if video_url %}
+      <p style="margin-top: var(--space-xl)">
+        <a class="btn magnetic" href="{{ video_url }}">Погледајте видео</a>
+      </p>
+    {% endif %}
+
+    {% if file %}
+      <p style="margin-top: var(--space-xl)">
+        <a class="btn magnetic" href="{{ file }}">Преузмите приручник (PDF)</a>
+      </p>
+    {% endif %}
+
+    <p style="margin-top: var(--space-2xl)">
+      <a class="news__link" href="{{ nadredjeniUrl }}">Назад на {{ nadredjeni | lower }}</a>
+    </p>
+
+  </div>
+</section>

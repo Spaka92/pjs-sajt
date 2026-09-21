@@ -1,0 +1,10 @@
+{
+  "layout": "article.njk",
+  "nadredjeni": "Едукације",
+  "nadredjeniUrl": "/edukacije/",
+  "permalink": "/edukacije/{{ page.fileSlug }}/",
+  "eleventyComputed": {
+    "naslovStranice": "{{ title }}",
+    "opisStranice": "{{ summary }}"
+  }
+}

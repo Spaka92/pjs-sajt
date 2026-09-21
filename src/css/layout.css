@@ -1,0 +1,768 @@
+/* ============================================================
+   LAYOUT.CSS
+   Where things sit. Positions, spacing and page-level
+   backgrounds. No styling of individual components.
+   ============================================================ */
+
+
+/* ---------- 1. CONTAINER ------------------------------------ */
+
+.container {
+  width: 100%;
+  max-width: var(--width-page);
+  margin-inline: auto;
+  padding-inline: var(--space-md);
+}
+
+.container--narrow {
+  max-width: var(--width-narrow);
+}
+
+
+/* ---------- 2. SECTION RHYTHM -------------------------------
+   Vertical spacing lives on ONE class. Do not add margins to
+   individual sections later - that is how stylesheets rot.
+   ----------------------------------------------------------- */
+
+.section {
+  padding-block: var(--space-2xl);
+}
+
+.section--alt {
+  background: var(--color-alt);
+}
+
+.section__head {
+  margin-bottom: var(--space-xl);
+  max-width: 44rem;
+}
+
+.section__title {
+  font-size: var(--text-2xl);
+  margin-top: var(--space-sm);
+}
+
+.section__lede {
+  color: var(--color-muted);
+  font-size: var(--text-lg);
+  margin-top: var(--space-md);
+}
+
+.section__head--center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.section__head--center .eyebrow {
+  justify-content: center;
+}
+
+
+/* ---------- 3. HEADER ---------------------------------------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--color-alt) 82%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+/* JavaScript adds this once you scroll past the top, so the
+   header only grows a border when it is actually overlapping
+   content. A small detail that reads as considered. */
+.site-header.is-stuck {
+  border-bottom-color: var(--color-border);
+  background: color-mix(in srgb, var(--color-alt) 94%, transparent);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  min-height: var(--header-height);
+}
+
+.nav__list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.nav__list a {
+  text-decoration: none;
+}
+
+.nav__toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-xs) var(--space-sm);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+@media (max-width: 52rem) {
+  .nav__toggle { display: block; }
+
+  .nav__menu {
+    display: none;
+    position: absolute;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    background: var(--color-surface);
+    border-block: 1px solid var(--color-border);
+    padding: var(--space-md);
+    box-shadow: var(--shadow);
+  }
+
+  .nav__menu.is-open { display: block; }
+
+  .nav__list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md);
+    font-size: var(--text-base);
+  }
+}
+
+
+/* ---------- 4. HERO ------------------------------------------
+   Five layers. Reading from the back:
+     1. flat colour, plus the SVG drawing as a safety net
+     2. the photograph, FAR half   - masked above the horizon
+     3. the photograph, NEAR half  - masked below the horizon
+     4. grain, survey grid, moving sun glow, darkening gradient
+     5. the text
+
+   The two photo halves move by different amounts as you sweep
+   the cursor. That difference is the whole illusion of depth -
+   a flat JPEG cannot have any, so we manufacture it.
+
+   isolation:isolate makes a private stacking context so the
+   negative z-index values stay inside the hero.
+   ----------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: min(88vh, 46rem);
+  display: grid;
+  align-items: center;
+  color: var(--color-on-dark);
+  padding-block: var(--space-2xl);
+
+  /* The safety net: if the photograph fails to load, the drawn
+     landscape shows through instead of a black hole. */
+  background-color: var(--color-deep);
+  background-image: var(--img-hero-art);
+  background-size: cover;
+  background-position: center;
+}
+
+/* The two photo planes. Identical except for their mask and how
+   far JavaScript pushes them. */
+.hero__plane {
+  position: absolute;
+  inset: -8%;                /* oversized so no edge is ever exposed */
+  z-index: -2;
+  pointer-events: none;
+  background-image: var(--img-hero-photo);
+  background-size: cover;
+  background-position: center;
+
+  /* translate is set by JavaScript, scale by the drift animation
+     below. They are SEPARATE CSS properties, so neither wipes out
+     the other - which is exactly why we are not using transform. */
+  translate: var(--px, 0px) var(--py, 0px);
+  animation: heroDrift 28s ease-in-out infinite alternate;
+  will-change: translate;
+}
+
+/* Everything above the horizon. Soft edge, so the seam between
+   the two halves never shows. */
+.hero__plane--far {
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 38%, transparent 52%);
+  mask-image:         linear-gradient(180deg, #000 0%, #000 38%, transparent 52%);
+}
+
+/* Everything below it. This is the half that moves further. */
+.hero__plane--near {
+  -webkit-mask-image: linear-gradient(180deg, transparent 34%, #000 50%, #000 100%);
+  mask-image:         linear-gradient(180deg, transparent 34%, #000 50%, #000 100%);
+}
+
+/* Drift animates SCALE only, leaving translate free for the
+   parallax. Two properties, two jobs, no collision. */
+@keyframes heroDrift {
+  from { scale: 1;    }
+  to   { scale: 1.09; }
+}
+
+/* Tint, grid, grain, and the sun. --gx / --gy are written by
+   JavaScript so the glow drifts toward the cursor. The defaults
+   put the sun where it sits in the photograph. */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    var(--img-grain),
+    var(--img-grid),
+    radial-gradient(72% 56% at var(--gx, 78%) var(--gy, 42%),
+                    rgb(217 161 58 / 0.30), transparent 70%),
+    linear-gradient(180deg,
+      rgb(15 35 24 / 0.86) 0%,
+      rgb(15 35 24 / 0.72) 45%,
+      rgb(15 35 24 / 0.94) 100%);
+  background-size: 200px, 64px 64px, cover, cover;
+  /* Fade the grid out toward the edges so it reads as texture
+     rather than graph paper. */
+  mask-image: radial-gradient(120% 100% at 50% 50%, #000 55%, transparent 100%);
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 50rem;
+}
+
+/* ---------- HERO EYEBROW ---------------------------------------
+   The default .eyebrow is dark green, which works on the pale
+   sections and vanishes on this dark photo. Rather than just
+   recolouring the text, it gets a glass chip: a translucent
+   backdrop guarantees it stays readable no matter which
+   photograph sits behind it later.
+   ----------------------------------------------------------- */
+
+.hero .eyebrow {
+  color: #f2e9d2;
+  background: rgb(20 26 15 / 0.42);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgb(246 198 90 / 0.38);
+  border-radius: 999px;
+  padding: 0.4rem 0.95rem 0.4rem 0.7rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.13em;
+  opacity: 0;
+  animation: wordIn 0.7s ease 0.02s forwards;
+}
+
+/* The short rule becomes a lit dot, like the sun in the logo. */
+.hero .eyebrow::before {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--brand-gold-lt);
+  box-shadow: 0 0 0 4px rgb(246 198 90 / 0.16),
+              0 0 10px rgb(246 198 90 / 0.8);
+  animation: dotPulse 2.8s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgb(246 198 90 / 0.16),
+                         0 0 10px rgb(246 198 90 / 0.80); }
+  50%      { box-shadow: 0 0 0 7px rgb(246 198 90 / 0.06),
+                         0 0 14px rgb(246 198 90 / 1); }
+}
+
+.hero__title {
+  font-size: var(--text-3xl);
+  margin-top: var(--space-md);
+}
+
+/* Words rise in one after another. Pure CSS - the delays are
+   set by nth-child below, no JavaScript involved. */
+.hero__title .word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.45em);
+  animation: wordIn 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.hero__title .word:nth-child(1) { animation-delay: 0.05s; }
+.hero__title .word:nth-child(2) { animation-delay: 0.15s; }
+.hero__title .word:nth-child(3) { animation-delay: 0.25s; }
+
+.hero__title .word--accent {
+  color: var(--color-gold);
+}
+
+@keyframes wordIn {
+  to { opacity: 1; transform: none; }
+}
+
+.hero__rotator {
+  min-height: 2.6em;         /* reserves space so nothing jumps */
+  margin-top: var(--space-md);
+  font-size: var(--text-xl);
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--color-on-dark-muted);
+  opacity: 0;
+  animation: wordIn 0.7s ease 0.45s forwards;
+}
+
+.hero__rotator-word {
+  display: inline-block;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.hero__rotator-word.is-fading {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-xl);
+  opacity: 0;
+  animation: wordIn 0.7s ease 0.6s forwards;
+}
+
+/* Someone who asked for less motion gets the finished state
+   immediately, with no drift and no staggered entrance. */
+@media (prefers-reduced-motion: reduce) {
+  .hero__plane {
+    animation: none;
+    translate: none;
+  }
+  .hero .eyebrow::before { animation: none; }
+  .hero .eyebrow,
+  .hero__title .word,
+  .hero__rotator,
+  .hero__actions {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+
+/* ---------- 5. FULL-WIDTH BANDS -------------------------------
+   Dark strips that interrupt the page and give it rhythm.
+   ----------------------------------------------------------- */
+
+.band {
+  position: relative;
+  background-color: var(--color-accent);
+  background-image: var(--img-furrow);
+  background-repeat: repeat;
+  color: var(--color-accent-in);
+  padding-block: var(--space-xl);
+}
+
+.band__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+
+.band__title {
+  font-size: var(--text-xl);
+}
+
+.band__text {
+  margin-top: var(--space-xs);
+  max-width: 34rem;
+  opacity: 0.85;
+  font-size: var(--text-sm);
+}
+
+.band--stats {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: var(--color-deep);
+  background-image: none;
+  padding-block: var(--space-2xl);
+}
+
+/* Aerial photo, pushed almost entirely into the dark so the
+   gold numbers stay the loudest thing in the band. */
+.band--stats::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgb(15 35 24 / 0.88), rgb(15 35 24 / 0.92)),
+    var(--img-stats-photo);
+  background-size: cover;
+  background-position: center;
+}
+
+
+/* ---------- 6. GRIDS ------------------------------------------
+   auto-fit + minmax collapses the columns on its own as the
+   screen narrows. No extra media query needed.
+   ----------------------------------------------------------- */
+
+.grid {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.grid--3 {
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+}
+
+/* Deliberately uneven: text gets more room than the panel.
+   Symmetry is the default, and defaults look like templates. */
+.grid--feature {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+@media (max-width: 52rem) {
+  .grid--feature { grid-template-columns: 1fr; }
+}
+
+
+/* ---------- 7. PROMISES LIST ----------------------------------- */
+
+.promises {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: var(--space-xs) var(--space-xl);
+}
+
+
+/* ---------- 8. LOGO STRIP -------------------------------------- */
+
+.logos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: var(--space-sm);
+}
+
+
+/* ---------- 9. STATS -------------------------------------------- */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: var(--space-lg);
+  text-align: center;
+}
+
+
+/* ---------- 10. FOOTER ------------------------------------------ */
+
+.site-footer {
+  background: var(--color-ink);
+  color: var(--color-on-dark);
+  padding-block: var(--space-xl);
+  font-size: var(--text-sm);
+}
+
+.site-footer__inner {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: var(--space-lg);
+}
+
+
+/* ---------- 11. LOGO MARQUEE ----------------------------------
+   The track holds the logo list TWICE. When the animation has
+   moved it exactly 50% to the left, the second copy sits where
+   the first began - so the loop is invisible.
+   ----------------------------------------------------------- */
+
+.marquee {
+  overflow: hidden;
+  /* Fades the strip out at both ends instead of cutting it off. */
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.marquee__track {
+  display: flex;
+  gap: var(--space-sm);
+  width: max-content;
+  animation: marquee 34s linear infinite;
+}
+
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+
+.marquee__track .logo {
+  width: 12rem;
+  flex-shrink: 0;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track { animation: none; }
+  .marquee { overflow-x: auto; }
+}
+
+
+/* ---------- 12. SCROLL PROGRESS -------------------------------- */
+
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  z-index: var(--z-progress);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, var(--color-accent), var(--color-gold));
+}
+
+
+/* ============================================================
+   BRAND + INTERACTION LAYER
+   ============================================================ */
+
+
+/* ---------- LOGO IN THE HEADER --------------------------------- */
+
+.nav__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  text-decoration: none;
+}
+
+.nav__logo img {
+  height: 2.5rem;
+  width: auto;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+              filter 0.3s ease;
+}
+
+.nav__logo:hover img {
+  transform: scale(1.04);
+  /* A warm halo the colour of the sun in the mark. */
+  filter: drop-shadow(0 0 12px rgb(246 198 90 / 0.55));
+}
+
+
+/* ---------- NAVIGATION LINK SWEEP -------------------------------
+   A rule that grows from the left on hover. transform:scaleX is
+   animated on the graphics card; animating width is not.
+   ----------------------------------------------------------- */
+
+.nav__list a:not(.btn) {
+  position: relative;
+  padding-block: 0.25rem;
+}
+
+.nav__list a:not(.btn)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--brand-green), var(--brand-gold));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.nav__list a:not(.btn):hover::after {
+  transform: scaleX(1);
+}
+
+
+/* ---------- DUST IN THE HERO LIGHT -------------------------------
+   Six drifting motes, made of nothing but box-shadow. No images,
+   no canvas, no library - the browser draws them for free.
+   ----------------------------------------------------------- */
+
+.hero__dust {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero__dust i {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--brand-gold-lt);
+  opacity: 0;
+  animation: drift linear infinite;
+}
+
+.hero__dust i:nth-child(1) { left: 12%; animation-duration: 19s; animation-delay: 0s;   }
+.hero__dust i:nth-child(2) { left: 28%; animation-duration: 24s; animation-delay: -6s;  }
+.hero__dust i:nth-child(3) { left: 47%; animation-duration: 16s; animation-delay: -11s; }
+.hero__dust i:nth-child(4) { left: 63%; animation-duration: 27s; animation-delay: -3s;  }
+.hero__dust i:nth-child(5) { left: 78%; animation-duration: 21s; animation-delay: -15s; }
+.hero__dust i:nth-child(6) { left: 91%; animation-duration: 18s; animation-delay: -8s;  }
+
+@keyframes drift {
+  0%   { transform: translateY(105%) translateX(0);     opacity: 0;   }
+  15%  {                                                 opacity: 0.7; }
+  85%  {                                                 opacity: 0.5; }
+  100% { transform: translateY(-15%) translateX(28px);   opacity: 0;   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__dust { display: none; }
+}
+
+
+/* ---------- FOOTER BRANDING --------------------------------------- */
+
+.site-footer__logo {
+  height: 2.75rem;
+  width: auto;
+  margin-bottom: var(--space-sm);
+}
+
+
+/* ============================================================
+   INNER PAGE HEADER
+   Every page except the homepage. Same dark band, a fraction
+   of the height — so pages feel related without each one
+   demanding a full screen before any content appears.
+   ============================================================ */
+
+.page-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: var(--color-deep);
+  color: var(--color-on-dark);
+  padding-block: calc(var(--space-2xl) - 1rem) var(--space-xl);
+}
+
+.page-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--img-grain), var(--img-furrow);
+  background-size: 200px, auto;
+  opacity: 0.6;
+}
+
+.page-hero .eyebrow { color: var(--brand-gold-lt); }
+
+.page-hero__title {
+  font-size: var(--text-2xl);
+  margin-top: var(--space-sm);
+  max-width: 24ch;
+}
+
+.page-hero__lede {
+  color: var(--color-on-dark-muted);
+  font-size: var(--text-lg);
+  margin-top: var(--space-md);
+  max-width: 52ch;
+}
+
+.breadcrumb {
+  font-size: var(--text-sm);
+  color: var(--color-on-dark-muted);
+  margin-bottom: var(--space-md);
+}
+
+.breadcrumb a { text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+
+
+/* ---------- NAV: FLAGGED ITEMS + CURRENT PAGE -----------------
+   Твој агроном and 3П are the two things the brief asks to
+   highlight, so they carry a gold dot in the menu.
+   ----------------------------------------------------------- */
+
+.nav__flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
+.nav__flag::before {
+  content: "";
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--brand-gold);
+  box-shadow: 0 0 8px rgb(246 198 90 / 0.7);
+}
+
+.nav__list a.is-current {
+  color: var(--brand-green);
+}
+
+.nav__list a.is-current::after {
+  transform: scaleX(1);      /* the underline stays drawn */
+}
+
+
+/* ---------- FOOTER: NOW MULTI-COLUMN -------------------------- */
+
+.site-footer__inner {
+  grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+}
+
+@media (max-width: 56rem) {
+  .site-footer__inner {
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  }
+}
+
+.site-footer__title {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-gold-lt);
+  margin-bottom: var(--space-sm);
+}
+
+.site-footer__list {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.site-footer__list a {
+  text-decoration: none;
+  color: var(--color-on-dark-muted);
+}
+
+.site-footer__list a:hover { color: var(--color-on-dark); }
+
+.site-footer__note { color: var(--color-on-dark-muted); }
+
+.site-footer__bar {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  margin-top: var(--space-xl);
+  padding-top: var(--space-md);
+  border-top: 1px solid rgb(255 255 255 / 0.12);
+  color: var(--color-on-dark-muted);
+}

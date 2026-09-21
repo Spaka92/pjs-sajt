@@ -1,0 +1,268 @@
+/* ============================================================
+   BASE.CSS
+   Tokens, reset, and how bare HTML elements look.
+   Nothing here knows about your page layout.
+   ============================================================ */
+
+
+/* ---------- 1. TOKENS -------------------------------------
+   Every colour, size and spacing value lives here and nowhere
+   else. Change a value once, the whole site follows.
+   ----------------------------------------------------------- */
+
+:root {
+  /* ---- BRAND ----------------------------------------------
+     Sampled directly from the ПЈС logo, so the site and the
+     mark cannot drift apart. Never guess brand colours when
+     the artwork is sitting right there.
+     ----------------------------------------------------------- */
+  --brand-olive:   #485436;   /* ПЈС letters, dark field bands */
+  --brand-green:   #546636;   /* the curved field sweep */
+  --brand-khaki:   #847254;   /* ploughed strips */
+  --brand-gold:    #c0a254;   /* the sun */
+  --brand-gold-lt: #f6c65a;   /* sunlit edge */
+  --brand-red:     #a23c30;   /* the paprika */
+
+  /* ---- UI ROLES -------------------------------------------
+     Brand colours above, jobs below. Keeping them separate
+     means you can restyle the site without touching the brand.
+     ----------------------------------------------------------- */
+  --color-bg:        #f5f4ee;  /* warm paper, borrowed from the khaki */
+  --color-surface:   #ffffff;
+  --color-alt:       #eae8dd;
+  --color-border:    #d6d3c3;
+  --color-ink:       #1a1f14;
+  --color-muted:     #63684f;
+  --color-accent:    var(--brand-green);
+  --color-accent-in: #ffffff;
+  --color-deep:      #141a0f;  /* dark bands */
+  --color-gold:      var(--brand-gold-lt);
+
+  /* Text on dark backgrounds */
+  --color-on-dark:       #eef1e6;
+  --color-on-dark-muted: #aab29a;
+
+  /* Type - Manrope if it loads, system font if it does not.
+     Always give a fallback so the page never waits on a font. */
+  --font-body: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --text-sm:   0.875rem;
+  --text-base: 1.0625rem;
+  --text-lg:   1.1875rem;
+  --text-xl:   1.5rem;
+  --text-2xl:  clamp(1.75rem, 3.5vw, 2.5rem);
+  --text-3xl:  clamp(2.5rem, 7vw, 4.5rem);
+
+  /* Spacing - one scale, used everywhere. No random numbers. */
+  --space-xs:  0.5rem;
+  --space-sm:  0.75rem;
+  --space-md:  1.25rem;
+  --space-lg:  2rem;
+  --space-xl:  3rem;
+  --space-2xl: 6rem;
+
+  /* Shape */
+  --radius:    10px;
+  --radius-lg: 18px;
+  --shadow:      0 1px 2px rgb(21 32 26 / 0.04), 0 8px 24px rgb(21 32 26 / 0.06);
+  --shadow-lift: 0 2px 4px rgb(21 32 26 / 0.05), 0 16px 40px rgb(21 32 26 / 0.10);
+
+  /* Layout */
+  --width-page:    72rem;
+  --width-narrow:  38rem;
+  --header-height: 4.5rem;
+  --z-progress: 60;
+
+  /* ---- ARTWORK ------------------------------------------
+     Local SVG paths are relative to THIS file (css/), hence
+     the ../ to climb out before entering images/.
+
+     PHOTOGRAPHS: all from Pexels, free for commercial use,
+     no attribution required. These are remote URLs so you can
+     see the design immediately. BEFORE YOU GO LIVE, download
+     each one, compress it at squoosh.app, drop it in images/
+     and change the URL here to a local path. Never ship a site
+     that depends on someone else's server staying up.
+     -------------------------------------------------------- */
+
+  /* Golden wheat field at sunset - pexels.com/photo/38084358 */
+  --img-hero-photo: url("https://images.pexels.com/photos/38084358/pexels-photo-38084358.jpeg?auto=compress&cs=tinysrgb&w=1920");
+
+  /* Aerial view of a tractor ploughing - pexels.com/photo/12442358 */
+  --img-stats-photo: url("https://images.pexels.com/photos/12442358/pexels-photo-12442358.jpeg?auto=compress&cs=tinysrgb&w=1600");
+
+  /* Drawn artwork, kept as the fallback layer beneath the photos.
+     If a photo ever fails to load, this shows instead of a hole. */
+  --img-hero-art: url("../images/hero-fields.svg");
+  --img-furrow:   url("../images/furrows.svg");
+  --img-grain:    url("../images/grain.svg");
+  --img-grid:     url("../images/grid.svg");
+}
+
+
+/* ---------- 2. RESET ---------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+
+/* ---------- 3. BASE ELEMENTS -------------------------------- */
+
+html {
+  /* Stops the sticky header covering headings when a nav link
+     is clicked. Without this, #usluge lands under the header. */
+  scroll-padding-top: calc(var(--header-height) + var(--space-md));
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* Paragraphs after another paragraph get room. The first in a
+   block does not, so blocks stay tight under their heading. */
+p + p {
+  margin-top: var(--space-md);
+}
+
+a {
+  color: inherit;
+  text-decoration-color: var(--color-border);
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  text-decoration-color: currentColor;
+}
+
+/* Keyboard users must always see where they are. */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+
+/* ---------- 4. SHARED TEXT BITS ----------------------------- */
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  color: var(--color-accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* A short rule before the label. Cheap, and it stops the
+   eyebrow floating unattached above the heading. */
+.eyebrow::before {
+  content: "";
+  width: 1.75rem;
+  height: 2px;
+  background: currentColor;
+}
+
+
+/* ---------- 5. UTILITIES ------------------------------------ */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  top: var(--space-xs);
+  left: var(--space-xs);
+  z-index: 100;
+  padding: var(--space-xs) var(--space-md);
+  background: var(--color-ink);
+  color: var(--color-bg);
+  border-radius: var(--radius);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* Elements start slightly low and transparent; JavaScript adds
+   .is-visible when they scroll into view. */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+
+/* ---------- 6. MOTION PREFERENCE ---------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

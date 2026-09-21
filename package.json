@@ -1,0 +1,14 @@
+{
+  "name": "pjs-sajt",
+  "version": "1.0.0",
+  "description": "Сајт Удружења грађана Пољопривредници југа Србије",
+  "private": true,
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy",
+    "clean": "rm -rf _site"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}

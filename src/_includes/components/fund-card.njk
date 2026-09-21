@@ -1,0 +1,16 @@
+{# One competition / subsidy. Called with: {% set k = item %} #}
+<article class="fund spotlight">
+  <div class="fund__head">
+    <h3 class="fund__title">{{ k.data.title }}</h3>
+    <span class="fund__status fund__status--{{ 'otvoren' if k.data.status == 'Отворен' else 'zatvoren' }}">
+      {{ k.data.status }}
+    </span>
+  </div>
+  <p class="fund__meta">
+    {{ k.data.source }}{% if k.data.deadline %} · рок: {{ k.data.deadline | datumSrp }}{% if k.data.deadline | istekao %} (истекао){% endif %}{% endif %}
+  </p>
+  <p>{{ k.data.summary }}</p>
+  <p style="margin-top: var(--space-md)">
+    <a class="news__link" href="{{ k.url }}">Детаљи</a>
+  </p>
+</article>

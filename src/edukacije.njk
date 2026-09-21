@@ -1,0 +1,79 @@
+---
+layout: base.njk
+permalink: /edukacije/
+naslovStranice: "Едукације"
+opisStranice: "Стручна предавања, радионице, теренске обуке, видео едукације и приручници за чланове удружења."
+---
+
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="/">Почетна</a> &rsaquo; Едукације</p>
+    <p class="eyebrow">Едукације</p>
+    <h1 class="page-hero__title">Знање које се одмах примени на њиви</h1>
+    <p class="page-hero__lede">Предавања, радионице, теренске обуке, видео материјали и приручници.</p>
+  </div>
+</section>
+
+{% set predstojeci = collections.dogadjajiPredstojeci %}
+{% if predstojeci.length %}
+<section class="section">
+  <div class="container">
+    <header class="section__head reveal">
+      <p class="eyebrow">У плану</p>
+      <h2 class="section__title">Предстојећи термини</h2>
+    </header>
+    <div class="edus reveal">
+      {% for item in predstojeci %}
+        {% set d = item %}
+        {% include "components/event-card.njk" %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="section section--alt">
+  <div class="container">
+    <header class="section__head reveal">
+      <p class="eyebrow">Материјали</p>
+      <h2 class="section__title">Едукативни садржај</h2>
+    </header>
+    <div class="edus reveal">
+      {% for item in collections.edukacije %}
+        {% set d = item %}
+        <article class="edu spotlight">
+          <span class="edu__tag">{{ item.data.format }}</span>
+          <h3 class="edu__title">{{ item.data.title }}</h3>
+          {% if item.data.date %}
+            <p class="edu__meta">{{ item.data.date | datumSrp }}{% if item.data.location %} · {{ item.data.location }}{% endif %}</p>
+          {% endif %}
+          <p>{{ item.data.summary }}</p>
+          <p style="margin-top: var(--space-md)">
+            <a class="news__link" href="{{ item.url }}">Отворите</a>
+          </p>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% set prosli = collections.dogadjajiProsli %}
+{% if prosli.length %}
+<section class="section">
+  <div class="container">
+    <header class="section__head reveal">
+      <p class="eyebrow">Архива</p>
+      <h2 class="section__title">Одржани догађаји</h2>
+      <p class="section__lede">
+        Догађаји се овде премештају сами, чим прође датум.
+      </p>
+    </header>
+    <div class="edus reveal">
+      {% for item in prosli | limit(6) %}
+        {% set d = item %}
+        {% include "components/event-card.njk" %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}

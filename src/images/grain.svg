@@ -1,0 +1,13 @@
+<!--
+  grain.svg
+  Fine noise, laid over flat colour at very low opacity. Stops
+  large blocks of colour looking like plastic. This is the same
+  trick print designers use, borrowed for the screen.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <filter id="n">
+    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3"/>
+    <feColorMatrix type="saturate" values="0"/>
+  </filter>
+  <rect width="200" height="200" filter="url(#n)" opacity="0.5"/>
+</svg>

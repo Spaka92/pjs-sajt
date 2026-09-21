@@ -1,0 +1,12 @@
+<!--
+  grid.svg
+  A tileable survey grid. Laid over the hero photo at very low
+  opacity it reads as mapping / precision agriculture - the
+  "futuristic" layer, made of two lines and nothing else.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <g stroke="#8ff0b8" stroke-opacity="0.16" stroke-width="1" fill="none">
+    <path d="M0 0.5 H64"/>
+    <path d="M0.5 0 V64"/>
+  </g>
+</svg>

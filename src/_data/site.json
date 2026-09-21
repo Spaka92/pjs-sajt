@@ -1,0 +1,88 @@
+{
+  "naziv": "Пољопривредници југа Србије",
+  "skraceno": "ПЈС",
+  "pun_naziv": "Удружење грађана Пољопривредници југа Србије",
+  "opis": "Удружење пољопривредних произвођача југа Србије. Бесплатна стручна подршка агронома, проверене информације о конкурсима и подстицајима, едукације и заступање интереса.",
+  "url": "https://REPLACE-WITH-YOUR-DOMAIN.vercel.app",
+  "adresa": "Адреса 1, Ниш",
+  "telefon": "",
+  "email": "office@pjs.rs",
+  "radno_vreme": "Пон–пет 08:00–16:00",
+  "facebook": "",
+  "instagram": "",
+  "youtube": "",
+  "mapa_embed": "",
+  "clanarina_tekst": "Месечна чланарина, без уговорне обавезе.",
+  "ips_qr": "",
+  "statistika": [
+    {
+      "broj": 10000,
+      "opis": "пратилаца"
+    },
+    {
+      "broj": 28,
+      "opis": "стручних сарадника"
+    },
+    {
+      "broj": 487,
+      "opis": "чланова"
+    },
+    {
+      "broj": 14,
+      "opis": "партнера"
+    }
+  ],
+  "partneri_naslov": "Наши партнери",
+  "partneri": [
+    {
+      "naziv": "Нова планска пракса",
+      "logo": "/images/partneri/nova-planska-praksa.png",
+      "url": ""
+    },
+    {
+      "naziv": "УЦПД — Ужички центар за права детета",
+      "logo": "/images/partneri/ucpd.png",
+      "url": ""
+    },
+    {
+      "naziv": "ENECA",
+      "logo": "/images/partneri/eneca.png",
+      "url": ""
+    },
+    {
+      "naziv": "Новосадска новинарска школа",
+      "logo": "/images/partneri/novosadska-novinarska-skola.png",
+      "url": ""
+    },
+    {
+      "naziv": "МПС — Млади пољопривредници Србије",
+      "logo": "/images/partneri/mps.png",
+      "url": ""
+    },
+    {
+      "naziv": "Friedrich Ebert Stiftung",
+      "logo": "/images/partneri/friedrich-ebert-stiftung.png",
+      "url": ""
+    },
+    {
+      "naziv": "Сигурне стазе",
+      "logo": "/images/partneri/sigurne-staze.png",
+      "url": ""
+    }
+  ],
+  "finansiranje": {
+    "tekst": "Пројекат финансира Европска унија",
+    "logoi": [
+      {
+        "naziv": "#ЕУ за тебе — Европска унија",
+        "logo": "/images/eu-za-tebe.png",
+        "url": ""
+      },
+      {
+        "naziv": "БОШ — Београдска отворена школа",
+        "logo": "/images/bos.png",
+        "url": ""
+      }
+    ]
+  }
+}

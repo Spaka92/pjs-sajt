@@ -1,0 +1,10 @@
+{
+  "layout": "article.njk",
+  "nadredjeni": "Фондови и подстицаји",
+  "nadredjeniUrl": "/fondovi/",
+  "permalink": "/konkursi/{{ page.fileSlug }}/",
+  "eleventyComputed": {
+    "naslovStranice": "{{ title }}",
+    "opisStranice": "{{ summary }}"
+  }
+}

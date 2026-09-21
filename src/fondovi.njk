@@ -1,0 +1,47 @@
+---
+layout: base.njk
+permalink: /fondovi/
+naslovStranice: "Фондови и подстицаји"
+opisStranice: "Актуелни конкурси, субвенције Министарства, IPARD, локални подстицаји и донаторски програми."
+---
+
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="/">Почетна</a> &rsaquo; Фондови и подстицаји</p>
+    <p class="eyebrow">Фондови и подстицаји</p>
+    <h1 class="page-hero__title">Новац који вам припада — на време</h1>
+    <p class="page-hero__lede">Актуелни конкурси, субвенције, IPARD, локални подстицаји и донаторски програм.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <header class="section__head reveal">
+      <p class="eyebrow">Актуелно</p>
+      <h2 class="section__title">Конкурси</h2>
+      <p class="section__lede">Помажемо при припреми документације и пријави.</p>
+    </header>
+    <div class="funds reveal">
+      {% for item in collections.konkursi %}
+        {% set k = item %}
+        {% include "components/fund-card.njk" %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <header class="section__head reveal">
+      <p class="eyebrow">Извори</p>
+      <h2 class="section__title">Где тражимо средства</h2>
+    </header>
+    <ul class="promises reveal">
+      <li>Актуелни конкурси</li>
+      <li>Субвенције Министарства</li>
+      <li>IPARD</li>
+      <li>Локални подстицаји</li>
+      <li>Донаторски програм</li>
+    </ul>
+  </div>
+</section>

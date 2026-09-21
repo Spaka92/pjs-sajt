@@ -1,0 +1,32 @@
+<!--
+  field-rows.svg
+  Stands in wherever a photograph will eventually go, so the
+  layout and spacing are already correct before you have images.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"
+     preserveAspectRatio="xMidYMid slice" role="img" aria-label="">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0"   stop-color="#dfe8d8"/>
+      <stop offset="0.55" stop-color="#bcd0ae"/>
+      <stop offset="1"   stop-color="#7d9a6b"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#g)"/>
+  <circle cx="600" cy="150" r="52" fill="#e8c46a" opacity="0.55"/>
+
+  <path d="M0 320 C 180 300 320 340 480 322 C 620 306 700 330 800 316 L800 600 L0 600 Z"
+        fill="#8faa7b"/>
+  <path d="M0 380 C 200 358 400 402 600 378 C 700 366 760 382 800 374 L800 600 L0 600 Z"
+        fill="#6f8f5c"/>
+
+  <g stroke="#ffffff" stroke-opacity="0.22" stroke-width="3" fill="none">
+    <path d="M-60 600 L 300 386"/>
+    <path d="M 120 600 L 380 384"/>
+    <path d="M 320 600 L 452 382"/>
+    <path d="M 520 600 L 520 381"/>
+    <path d="M 720 600 L 590 383"/>
+    <path d="M 900 600 L 664 386"/>
+  </g>
+</svg>

@@ -1,0 +1,17 @@
+{# One team member. Called with: {% set c = item %} #}
+<article class="person spotlight">
+  <div class="person__photo">
+    {% if c.data.photo %}
+      <img src="{{ c.data.photo }}" alt="{{ c.data.name }}" loading="lazy">
+    {% else %}
+      {# No photo yet — show the initial rather than an empty grey box. #}
+      <span class="person__initial">{{ c.data.name | first }}</span>
+    {% endif %}
+  </div>
+  <div class="person__body">
+    <h3 class="person__name">{{ c.data.name }}</h3>
+    <p class="person__role">{{ c.data.role }}</p>
+    {% if c.data.speciality %}<p class="person__field">{{ c.data.speciality }}</p>{% endif %}
+    {% if c.templateContent %}<div class="person__bio">{{ c.templateContent | safe }}</div>{% endif %}
+  </div>
+</article>

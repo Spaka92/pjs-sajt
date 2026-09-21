@@ -1,0 +1,82 @@
+---
+layout: base.njk
+permalink: /kontakt/
+naslovStranice: "Контакт"
+opisStranice: "Контакт подаци Удружења грађана Пољопривредници југа Србије — адреса, телефон, имејл и друштвене мреже."
+---
+
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="/">Почетна</a> &rsaquo; Контакт</p>
+    <p class="eyebrow">Контакт</p>
+    <h1 class="page-hero__title">Јавите нам се</h1>
+    <p class="page-hero__lede">Питање за агронома, пријава за чланство или сарадња — на располагању смо.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="grid--feature tilt-scene">
+
+      <div class="reveal">
+        <p class="eyebrow">Контакт форма</p>
+        <h2 class="section__title">Пошаљите поруку</h2>
+
+        {# TODO: FORMSPREE — исто као на страници Постани члан. #}
+        <form class="form spotlight" id="quote-form" novalidate style="margin-top: var(--space-lg)">
+          <div class="field">
+            <label for="name">Име и презиме</label>
+            <input type="text" id="name" name="name" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="email">Имејл</label>
+            <input type="email" id="email" name="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="job">Ваша порука</label>
+            <textarea id="job" name="job" rows="5" required></textarea>
+          </div>
+          <button class="btn magnetic" type="submit">Пошаљите</button>
+          <p class="form__status" id="form-status" role="status"></p>
+        </form>
+      </div>
+
+      <aside class="panel spotlight tilt reveal">
+        <h3 class="panel__title">Подаци удружења</h3>
+        <p style="color: var(--color-muted); font-size: var(--text-sm); margin-top: var(--space-md)">
+          Удружење грађана<br>
+          {{ site.naziv }}<br><br>
+          {{ site.adresa }}<br>
+          {% if site.telefon %}<a href="tel:{{ site.telefon | replace(" ", "") }}">{{ site.telefon }}</a><br>{% endif %}
+          <a href="mailto:{{ site.email }}">{{ site.email }}</a><br>
+          {{ site.radno_vreme }}
+        </p>
+
+        {% if site.facebook or site.instagram or site.youtube %}
+          <h3 class="panel__title" style="margin-top: var(--space-lg)">Друштвене мреже</h3>
+          <p style="color: var(--color-muted); font-size: var(--text-sm); margin-top: var(--space-sm)">
+            {% if site.facebook %}<a href="{{ site.facebook }}">Facebook</a>{% endif %}
+            {% if site.instagram %} · <a href="{{ site.instagram }}">Instagram</a>{% endif %}
+            {% if site.youtube %} · <a href="{{ site.youtube }}">YouTube</a>{% endif %}
+          </p>
+        {% endif %}
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+{% if site.mapa_embed %}
+<section class="section section--alt">
+  <div class="container">
+    <header class="section__head reveal">
+      <p class="eyebrow">Мапа</p>
+      <h2 class="section__title">Где смо</h2>
+    </header>
+    <div class="media media--wide reveal">
+      <iframe src="{{ site.mapa_embed }}" title="Мапа" width="1200" height="675"
+              style="border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</section>
+{% endif %}

@@ -1,0 +1,26 @@
+{
+  "glavni": [
+    { "labela": "О удружењу",     "url": "/o-nama/",        "istaknuto": false },
+    { "labela": "Твој агроном",   "url": "/tvoj-agronom/",  "istaknuto": true  },
+    { "labela": "3П",             "url": "/3p/",            "istaknuto": true  },
+    { "labela": "Едукације",      "url": "/edukacije/",     "istaknuto": false },
+    { "labela": "Фондови",        "url": "/fondovi/",       "istaknuto": false },
+    { "labela": "Вести",          "url": "/vesti/",         "istaknuto": false },
+    { "labela": "Контакт",        "url": "/kontakt/",       "istaknuto": false }
+  ],
+
+  "podnozje_sadrzaj": [
+    { "labela": "О удружењу",             "url": "/o-nama/" },
+    { "labela": "Твој агроном",           "url": "/tvoj-agronom/" },
+    { "labela": "3П за правог домаћина",  "url": "/3p/" },
+    { "labela": "Едукације",              "url": "/edukacije/" },
+    { "labela": "Вести",                  "url": "/vesti/" }
+  ],
+
+  "podnozje_clanstvo": [
+    { "labela": "Како помажемо",          "url": "/kako-pomazemo/" },
+    { "labela": "Фондови и подстицаји",   "url": "/fondovi/" },
+    { "labela": "Постани члан",           "url": "/postani-clan/" },
+    { "labela": "Контакт",                "url": "/kontakt/" }
+  ]
+}

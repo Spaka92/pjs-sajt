@@ -1,0 +1,67 @@
+{# ============================================================
+   HEADER — built from src/_data/nav.json.
+   To change the menu, edit that file (or the CMS), not this one.
+   ============================================================ #}
+{# ============================================================
+   ТРАКА ФИНАНСИРАЊА
+   The EU emblem is a grant requirement, not decoration: EU
+   funding rules oblige beneficiaries to display it. So it sits
+   at the very top of every page, above everything else.
+
+   Deliberately NOT sticky — it scrolls away, leaving the slim
+   nav behind. Visibility rules ask for it to be on the page,
+   not permanently pinned over the content.
+   ============================================================ #}
+{% if site.finansiranje and site.finansiranje.logoi %}
+<div class="funding">
+  <div class="container funding__inner">
+    <p class="funding__text">{{ site.finansiranje.tekst }}</p>
+    <ul class="funding__logos">
+      {% for f in site.finansiranje.logoi %}
+        <li>
+          {% if f.url %}
+            <a href="{{ f.url }}" target="_blank" rel="noopener">
+              <img src="{{ f.logo }}" alt="{{ f.naziv }}">
+            </a>
+          {% else %}
+            <img src="{{ f.logo }}" alt="{{ f.naziv }}">
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endif %}
+
+<header class="site-header">
+  <div class="container nav">
+
+    <a class="nav__logo" href="/">
+      <img src="/images/pjs-logo.png"
+           alt="{{ site.skraceno }} — {{ site.naziv }}"
+           width="900" height="363">
+    </a>
+
+    <button class="nav__toggle" type="button"
+            aria-expanded="false" aria-controls="site-nav">Мени</button>
+
+    <nav class="nav__menu" id="site-nav" aria-label="Главна навигација">
+      <ul class="nav__list">
+        {% for stavka in nav.glavni %}
+          <li>
+            {# `page.url` is the address of the page being built, so
+               the current item can be marked at build time. No
+               JavaScript needed for this any more. #}
+            <a href="{{ stavka.url }}"
+               class="{% if stavka.istaknuto %}nav__flag{% endif %}{% if page.url == stavka.url %} is-current{% endif %}"
+               {% if page.url == stavka.url %}aria-current="page"{% endif %}>{{ stavka.labela }}</a>
+          </li>
+        {% endfor %}
+        <li>
+          <a class="btn btn--small magnetic" href="/postani-clan/">Постани члан</a>
+        </li>
+      </ul>
+    </nav>
+
+  </div>
+</header>

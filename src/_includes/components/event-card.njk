@@ -1,0 +1,17 @@
+{# One event card. Called with: {% set d = item %} #}
+<article class="edu spotlight">
+  {% if d.data.image %}
+    <div class="media">
+      <img src="{{ d.data.image }}" alt="{{ d.data.image_alt or '' }}" loading="lazy">
+    </div>
+  {% endif %}
+  <span class="edu__tag">{{ d.data.type }}</span>
+  <h3 class="edu__title">{{ d.data.title }}</h3>
+  <p class="edu__meta">
+    {{ d.data.date | datumVremeSrp }}{% if d.data.location %} · {{ d.data.location }}{% endif %}
+  </p>
+  <p>{{ d.data.summary }}</p>
+  <p style="margin-top: var(--space-md)">
+    <a class="news__link" href="{{ d.url }}">Детаљи</a>
+  </p>
+</article>

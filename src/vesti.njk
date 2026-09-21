@@ -1,0 +1,26 @@
+---
+layout: base.njk
+permalink: /vesti/
+naslovStranice: "Вести"
+opisStranice: "Актуелне вести Удружења грађана Пољопривредници југа Србије."
+---
+
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="/">Почетна</a> &rsaquo; Вести</p>
+    <p class="eyebrow">Вести</p>
+    <h1 class="page-hero__title">Актуелно</h1>
+    <p class="page-hero__lede">Конкурси, партнерства, догађаји и обавештења за чланове.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="grid grid--3 tilt-scene reveal">
+      {% for item in collections.vesti %}
+        {% set v = item %}
+        {% include "components/news-card.njk" %}
+      {% endfor %}
+    </div>
+  </div>
+</section>

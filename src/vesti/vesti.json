@@ -1,0 +1,10 @@
+{
+  "layout": "article.njk",
+  "nadredjeni": "Вести",
+  "nadredjeniUrl": "/vesti/",
+  "permalink": "/vesti/{{ page.fileSlug }}/",
+  "eleventyComputed": {
+    "naslovStranice": "{{ title }}",
+    "opisStranice": "{{ summary }}"
+  }
+}

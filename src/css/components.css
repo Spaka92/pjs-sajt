@@ -1,0 +1,1091 @@
+/* ============================================================
+   COMPONENTS.CSS
+   Reusable pieces. Each block is one thing you can drop
+   anywhere and it looks the same. Loaded last, so it can
+   override layout defaults when it needs to.
+   ============================================================ */
+
+
+/* ---------- WORDMARK ------------------------------------------ */
+
+.nav__logo {
+  font-weight: 800;
+  font-size: var(--text-lg);
+  letter-spacing: -0.03em;
+  text-decoration: none;
+}
+
+.nav__logo span {
+  color: var(--color-accent);
+  margin-left: 0.3em;
+}
+
+
+/* ---------- BUTTON -------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  background: var(--color-accent);
+  color: var(--color-accent-in);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius);
+  padding: var(--space-sm) var(--space-lg);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lift);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--color-ink);
+  border-color: var(--color-border);
+}
+
+.btn--light {
+  background: var(--color-surface);
+  color: var(--color-accent);
+  border-color: var(--color-surface);
+}
+
+.btn--small {
+  padding: var(--space-xs) var(--space-md);
+}
+
+/* Ghost buttons sit on the dark hero, so they need light text
+   there. Scoping to .hero leaves the default version alone. */
+.hero .btn--ghost {
+  color: var(--color-on-dark);
+  border-color: rgb(255 255 255 / 0.3);
+}
+
+.hero .btn--ghost:hover {
+  background: rgb(255 255 255 / 0.08);
+}
+
+
+/* ---------- MEDIA SLOT -----------------------------------------
+   Where a photograph goes. aspect-ratio holds the shape before
+   any image loads, so the page never jumps as things arrive.
+   Swap the <img> src inside and everything else stays put.
+   ---------------------------------------------------------------- */
+
+.media {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--color-alt);
+}
+
+.media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;    /* fills the box, crops the overflow */
+}
+
+.media--wide { aspect-ratio: 16 / 9; }
+
+
+/* ---------- PROMISE ITEM ---------------------------------------- */
+
+.promises li {
+  display: grid;
+  grid-template-columns: 1.5rem 1fr;
+  gap: var(--space-sm);
+  align-items: start;
+  padding-block: var(--space-sm);
+  border-bottom: 1px solid var(--color-border);
+  font-weight: 500;
+}
+
+.promises li::before {
+  content: "\2713";                /* the tick character */
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: 0.2rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-accent-in);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+
+/* ---------- PARTNER LOGO PLACEHOLDER ----------------------------- */
+
+.logo {
+  display: grid;
+  place-items: center;
+  min-height: 5rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.logo:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+
+/* ---------- PROSE + PANEL ----------------------------------------- */
+
+.prose p {
+  color: var(--color-muted);
+}
+
+.prose p:first-of-type {
+  margin-top: var(--space-md);
+}
+
+.panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow);
+}
+
+.panel__title {
+  font-size: var(--text-lg);
+}
+
+.steps {
+  counter-reset: step;
+  margin-top: var(--space-md);
+  display: grid;
+  gap: var(--space-md);
+}
+
+/* The numbers are real information here - the order of the
+   process matters - so a numbered marker earns its place. */
+.steps li {
+  counter-increment: step;
+  display: grid;
+  grid-template-columns: 1.9rem 1fr;
+  gap: var(--space-sm);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.steps li::before {
+  content: counter(step);
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 50%;
+  background: var(--color-alt);
+  color: var(--color-accent);
+  font-weight: 800;
+  font-size: var(--text-sm);
+}
+
+
+/* ---------- NEWS CARD ---------------------------------------------- */
+
+.news {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;     /* clips the image to the rounded corner */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.news:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lift);
+}
+
+.news .media {
+  border-radius: 0;
+  aspect-ratio: 16 / 10;
+}
+
+.news__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-lg);
+  flex-grow: 1;
+}
+
+.news__date {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.news__title {
+  font-size: var(--text-lg);
+}
+
+.news__body p {
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  flex-grow: 1;         /* pushes the link down to the card floor */
+}
+
+.news__link {
+  margin-top: var(--space-sm);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.news__link::after {
+  content: " \2192";    /* arrow */
+  transition: margin 0.15s ease;
+}
+
+.news:hover .news__link::after {
+  margin-left: 0.3em;
+}
+
+
+/* ---------- STAT ---------------------------------------------------- */
+
+.stat__value {
+  display: block;
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--color-gold);
+  font-variant-numeric: tabular-nums;  /* stops digits jittering */
+}
+
+.stat span {
+  display: block;
+  margin-top: var(--space-xs);
+  color: var(--color-on-dark-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+
+/* ---------- FORM ------------------------------------------------------ */
+
+.form {
+  display: grid;
+  gap: var(--space-md);
+  justify-items: start;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow);
+}
+
+.field {
+  display: grid;
+  gap: var(--space-xs);
+  width: 100%;
+}
+
+.field label {
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-sm) var(--space-md);
+  resize: vertical;
+  transition: border-color 0.15s ease;
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: var(--color-accent);
+}
+
+/* Added by JavaScript when a field fails validation. */
+.field.has-error input,
+.field.has-error textarea {
+  border-color: #b3261e;
+}
+
+.form__status {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+
+/* ============================================================
+   SPOTLIGHT CARDS
+   A very soft warmth follows the cursor. Deliberately near the
+   threshold of noticing - you should feel the card respond
+   without being able to point at what changed.
+   ============================================================ */
+
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(
+    11rem 11rem at var(--mx, 50%) var(--my, 50%),
+    rgb(84 102 54 / 0.045),
+    transparent 68%
+  );
+}
+
+.spotlight:hover::before {
+  opacity: 1;
+}
+
+
+/* ---------- IMAGE ZOOM ON HOVER --------------------------------
+   The wrapper clips, the image scales. Scaling the wrapper
+   instead would drag the card's border along with it.
+   ---------------------------------------------------------------- */
+
+.media img {
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.news:hover .media img {
+  transform: scale(1.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .media img,
+  .news:hover .media img {
+    transition: none;
+    transform: none;
+  }
+}
+
+
+/* ============================================================
+   POINTER-REACTIVE COMPONENTS
+   Everything below is driven by CSS custom properties that
+   JavaScript writes. JS reports numbers; CSS decides looks.
+   ============================================================ */
+
+
+/* ---------- 3D TILT ---------------------------------------------
+   The card leans toward the cursor. perspective on the PARENT is
+   what makes it three-dimensional rather than a flat skew.
+   ---------------------------------------------------------------- */
+
+.tilt-scene {
+  perspective: 900px;
+}
+
+.tilt {
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateZ(0);
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 0.4s ease;
+  will-change: transform;
+}
+
+/* Snap out of the easing while the pointer is moving, so the card
+   tracks the cursor instead of lagging behind it. */
+.tilt.is-tilting {
+  transition: box-shadow 0.4s ease;
+}
+
+.tilt.is-tilting {
+  box-shadow: var(--shadow-lift);
+}
+
+
+/* ---------- MAGNETIC BUTTON --------------------------------------
+   The button drifts a few pixels toward the pointer as it nears.
+   Keep the pull tiny - past about 8px it feels broken, not alive.
+   ---------------------------------------------------------------- */
+
+.magnetic {
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 0.2s ease;
+  will-change: transform;
+}
+
+.magnetic.is-pulled {
+  transition: transform 0.08s linear, box-shadow 0.2s ease;
+}
+
+/* The pull is written into --pull-x / --pull-y by JavaScript. */
+.btn.magnetic {
+  transform: translate(var(--pull-x, 0px), var(--pull-y, 0px));
+}
+
+.btn.magnetic:hover {
+  transform: translate(var(--pull-x, 0px), calc(var(--pull-y, 0px) - 2px));
+  box-shadow: var(--shadow-lift);
+}
+
+
+/* ---------- PROMISE ROW HOVER -------------------------------------- */
+
+.promises li {
+  position: relative;
+  transition: color 0.25s ease, transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  cursor: default;
+}
+
+.promises li:hover {
+  color: var(--brand-olive);
+  transform: translateX(6px);
+}
+
+.promises li::before {
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+              background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.promises li:hover::before {
+  transform: scale(1.18);
+  background: var(--brand-gold);
+  color: var(--brand-olive);
+  box-shadow: 0 0 0 5px rgb(192 162 84 / 0.22);
+}
+
+/* The underline sweeps in from the left as you pass over a row. */
+.promises li::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--brand-green), var(--brand-gold), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.promises li:hover::after {
+  transform: scaleX(1);
+}
+
+
+/* ---------- PARTNER LOGOS ------------------------------------------
+   Muted by default so the strip reads as one texture, full colour
+   on hover so a visitor can pick out a name they recognise.
+   ---------------------------------------------------------------- */
+
+.logo {
+  filter: grayscale(1);
+  opacity: 0.55;
+  transition: filter 0.3s ease, opacity 0.3s ease,
+              transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+              border-color 0.3s ease;
+}
+
+.logo:hover {
+  filter: grayscale(0);
+  opacity: 1;
+  transform: translateY(-3px);
+  border-color: var(--brand-gold);
+}
+
+
+/* ---------- STAT GLOW ------------------------------------------------
+   Added by JavaScript the moment a number finishes counting.
+   ---------------------------------------------------------------- */
+
+.stat__value {
+  transition: text-shadow 0.6s ease;
+}
+
+.stat__value.is-done {
+  text-shadow: 0 0 26px rgb(246 198 90 / 0.45);
+}
+
+
+/* ---------- CTA BAND EDGE --------------------------------------------
+   A thin lit line along the top of the green band, in the three
+   brand colours. Small, and it makes the band look deliberate.
+   ---------------------------------------------------------------- */
+
+.band::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+    var(--brand-olive), var(--brand-gold-lt),
+    var(--brand-red), var(--brand-khaki), var(--brand-olive));
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .tilt,
+  .magnetic,
+  .btn.magnetic,
+  .promises li,
+  .logo {
+    transform: none !important;
+    transition: none;
+  }
+}
+
+
+/* ============================================================
+   BENEFITS STRIP — "приказати кључне користи" on the homepage
+   ============================================================ */
+
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: var(--space-md);
+}
+
+.benefit {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+}
+
+.benefit__icon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius);
+  background: var(--color-alt);
+  color: var(--brand-green);
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: var(--space-md);
+}
+
+.benefit h3 {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-xs);
+}
+
+.benefit p {
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+
+/* ============================================================
+   FLAGSHIP BLOCK — used for Твој агроном
+   The brief asks for this to stand out, so it gets the one
+   treatment nothing else on the page has: full-bleed dark,
+   photo on one side, offset panel on the other.
+   ============================================================ */
+
+.flagship {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--color-deep);
+  color: var(--color-on-dark);
+  padding-block: var(--space-2xl);
+}
+
+.flagship::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--img-furrow);
+  opacity: 0.5;
+}
+
+.flagship__inner {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+@media (max-width: 56rem) {
+  .flagship__inner { grid-template-columns: 1fr; }
+}
+
+.flagship__title {
+  font-size: var(--text-2xl);
+  margin-top: var(--space-sm);
+}
+
+.flagship__lede {
+  color: var(--color-on-dark-muted);
+  font-size: var(--text-lg);
+  margin-top: var(--space-md);
+}
+
+.flagship .eyebrow {
+  color: var(--brand-gold-lt);
+}
+
+/* The service list inside the flagship block. */
+.flagship__list {
+  display: grid;
+  gap: var(--space-xs);
+  margin-top: var(--space-lg);
+}
+
+.flagship__list li {
+  display: grid;
+  grid-template-columns: 1.4rem 1fr;
+  gap: var(--space-sm);
+  align-items: start;
+  padding-block: var(--space-xs);
+  border-bottom: 1px solid rgb(255 255 255 / 0.09);
+  font-size: var(--text-sm);
+}
+
+.flagship__list li::before {
+  content: "\2713";
+  display: grid;
+  place-items: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-top: 0.15rem;
+  border-radius: 50%;
+  background: var(--brand-gold);
+  color: var(--color-deep);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+/* The card that explains how the free service works. */
+.flagship__card {
+  background: rgb(255 255 255 / 0.06);
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  backdrop-filter: blur(6px);
+}
+
+.flagship__card h3 {
+  font-size: var(--text-lg);
+  color: var(--brand-gold-lt);
+}
+
+.flagship__card p {
+  color: var(--color-on-dark-muted);
+  font-size: var(--text-sm);
+  margin-top: var(--space-sm);
+}
+
+.flagship__note {
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid rgb(255 255 255 / 0.14);
+  font-size: var(--text-sm);
+  color: var(--color-on-dark);
+}
+
+
+/* ============================================================
+   3П BLOCK
+   The three П's are the whole idea, so the letterform IS the
+   design. Nothing else on the site uses type at this size.
+   ============================================================ */
+
+.p3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--space-md);
+}
+
+.p3__card {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.p3__card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lift);
+  border-color: var(--brand-gold);
+}
+
+/* The giant П sits behind the text, clipped by the card. */
+.p3__letter {
+  position: absolute;
+  top: -1.5rem;
+  right: -0.5rem;
+  font-size: 9rem;
+  line-height: 1;
+  font-weight: 800;
+  color: var(--brand-gold);
+  opacity: 0.14;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.p3__card:hover .p3__letter {
+  opacity: 0.24;
+  transform: scale(1.06) rotate(-3deg);
+}
+
+.p3__num {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--brand-gold);
+  text-transform: uppercase;
+}
+
+.p3__title {
+  font-size: var(--text-lg);
+  margin-top: var(--space-xs);
+}
+
+.p3__card p {
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  margin-top: var(--space-sm);
+  position: relative;
+}
+
+
+/* ============================================================
+   TEAM
+   ============================================================ */
+
+.team {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--space-md);
+}
+
+.person {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.person__photo {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  background: var(--color-alt);
+  overflow: hidden;
+}
+
+.person__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.person__initial {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--brand-green);
+  opacity: 0.35;
+}
+
+.person__body { padding: var(--space-lg); }
+
+.person__name  { font-size: var(--text-lg); }
+
+.person__role  {
+  color: var(--brand-green);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  margin-top: 0.15rem;
+}
+
+.person__field {
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  margin-top: var(--space-xs);
+}
+
+.person__bio {
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  margin-top: var(--space-sm);
+}
+
+
+/* ============================================================
+   FUNDS + EDUCATION LISTS
+   ============================================================ */
+
+.funds, .edus {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.edus { grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); }
+
+.fund, .edu {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+}
+
+.fund__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.fund__title, .edu__title { font-size: var(--text-lg); }
+
+.fund__status {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+}
+
+.fund__status--otvoren  { background: #dcebd4; color: #2e5a24; }
+.fund__status--zatvoren { background: var(--color-alt); color: var(--color-muted); }
+
+.fund__meta, .edu__meta {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  margin-top: var(--space-xs);
+}
+
+.fund p, .edu p {
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  margin-top: var(--space-sm);
+}
+
+.edu__tag {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-green);
+  background: var(--color-alt);
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  margin-bottom: var(--space-sm);
+}
+
+/* Optional event photo. The card keeps its normal padding for the
+   text, so the image is pulled out to the edges with a negative
+   margin equal to that padding, rather than restructuring the card. */
+.edu {
+  overflow: hidden;
+}
+
+.edu .media {
+  border-radius: 0;
+  aspect-ratio: 16 / 10;
+  margin: calc(-1 * var(--space-lg)) calc(-1 * var(--space-lg)) var(--space-md);
+}
+
+
+/* ============================================================
+   FAQ — <details> gives open/close behaviour with no JavaScript
+   ============================================================ */
+
+.faq { display: grid; gap: var(--space-xs); }
+
+.faq details {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-md) var(--space-lg);
+}
+
+.faq summary {
+  cursor: pointer;
+  font-weight: 700;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.faq summary::-webkit-details-marker { display: none; }
+
+.faq summary::after {
+  content: "+";
+  color: var(--brand-green);
+  font-weight: 800;
+}
+
+.faq details[open] summary::after { content: "\2212"; }
+
+.faq details p {
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  margin-top: var(--space-sm);
+}
+
+
+/* ---------- LOADING + ERROR STATES ---------------------------- */
+
+.feed-loading, .feed-error {
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+
+/* ============================================================
+   ТРАКА ФИНАНСИРАЊА — the EU visibility bar, top of every page
+   ============================================================ */
+
+/* Same tone as the header and the partners strip near the
+   footer — the header now echoes that color at both ends of
+   the page instead of the plain page background. */
+.funding {
+  background: var(--color-alt);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.funding__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  padding-block: var(--space-sm);
+}
+
+.funding__text {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-muted);
+}
+
+.funding__logos {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+/* The EU emblem has a minimum-size requirement in the grant rules.
+   2.25rem (36px) keeps the twelve stars legible; do not go below
+   this without checking the project's visibility guidelines. */
+.funding__logos img {
+  height: 2.25rem;
+  width: auto;
+}
+
+@media (max-width: 40rem) {
+  .funding__inner {
+    justify-content: center;
+    text-align: center;
+  }
+  .funding__text { width: 100%; }
+  .funding__logos { gap: var(--space-md); }
+  .funding__logos img { height: 1.9rem; }
+}
+
+
+/* ============================================================
+   ПАРТНЕРИ — moving strip above the dark footer
+   ============================================================ */
+
+.partners {
+  background: var(--color-alt);
+  border-top: 1px solid var(--color-border);
+  padding-block: var(--space-xl);
+}
+
+.partners__title {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+/* Slower than the old placeholder marquee: these logos carry
+   readable text, so they need longer on screen to be legible. */
+.marquee--partners .marquee__track {
+  align-items: center;
+  gap: var(--space-2xl);
+  animation-duration: 46s;
+}
+
+.partners__item {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.partners__item a { display: block; line-height: 0; }
+
+/* Every logo was cut at the same full height from the supplied
+   strip, so one height here reproduces exactly the relative
+   sizing the designer balanced between them. */
+.partners__item img {
+  height: 7rem;
+  width: auto;
+  opacity: 0.85;
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.partners__item img:hover {
+  opacity: 1;
+  transform: scale(1.04);
+}
+
+@media (max-width: 40rem) {
+  .partners__item img { height: 4.75rem; }
+  .marquee--partners .marquee__track {
+    gap: var(--space-xl);
+    animation-duration: 34s;
+  }
+}
+
+/* With motion off the strip stops and becomes a manual scroller,
+   so nothing is unreachable. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee--partners .marquee__track { animation: none; }
+  .partners__item img { transition: none; transform: none; }
+}

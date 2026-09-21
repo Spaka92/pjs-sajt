@@ -1,0 +1,15 @@
+{# One news card. Called with: {% set v = item %} then included. #}
+<article class="news spotlight tilt">
+  {% if v.data.image %}
+    <div class="media">
+      <img src="{{ v.data.image }}" alt="{{ v.data.image_alt or '' }}"
+           width="800" height="500" loading="lazy">
+    </div>
+  {% endif %}
+  <div class="news__body">
+    <time class="news__date" datetime="{{ v.data.date | datumISO }}">{{ v.data.date | datumSrp }}</time>
+    <h3 class="news__title">{{ v.data.title }}</h3>
+    <p>{{ v.data.summary }}</p>
+    <a class="news__link" href="{{ v.url }}">Прочитајте више</a>
+  </div>
+</article>

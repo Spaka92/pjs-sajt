@@ -1,0 +1,59 @@
+---
+layout: base.njk
+permalink: /o-nama/
+naslovStranice: "О удружењу"
+opisStranice: "Ко смо, мисија и визија, циљеви, наш тим, партнери и документа Удружења грађана Пољопривредници југа Србије."
+---
+
+<section class="page-hero">
+  <div class="container">
+    <p class="breadcrumb"><a href="/">Почетна</a> &rsaquo; О удружењу</p>
+    <p class="eyebrow">О удружењу</p>
+    <h1 class="page-hero__title">Удружење грађана Пољопривредници југа Србије</h1>
+    <p class="page-hero__lede">Ко смо, шта нам је циљ и људи који стоје иза тога.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="grid--feature">
+      <div class="prose reveal">
+        <p class="eyebrow">Ко смо</p>
+        <h2 class="section__title">Удружење пољопривредника југа Србије</h2>
+        <p><!-- TODO: заменити стварним текстом удружења -->
+          Удружење окупља пољопривредне произвођаче са југа Србије и пружа им
+          стручну, информативну и правну подршку у свакодневном раду.
+        </p>
+        <p>
+          Основани смо да бисмо поједноставили оно што пољопривреднику
+          одузима највише времена — папирологију, конкурсе и потрагу за
+          поузданом стручном информацијом.
+        </p>
+      </div>
+
+      <aside class="panel spotlight reveal">
+        <h3 class="panel__title">Мисија и визија</h3>
+        <ol class="steps">
+          <li><strong>Мисија</strong> — <!-- TODO --> да сваки домаћин има приступ стручној подршци.</li>
+          <li><strong>Визија</strong> — <!-- TODO --> јака и повезана пољопривреда југа Србије.</li>
+          <li><strong>Циљеви</strong> — <!-- TODO --> едукација, заступање интереса, промоција домаћих производа.</li>
+        </ol>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <header class="section__head reveal">
+      <p class="eyebrow">Наш тим</p>
+      <h2 class="section__title">Људи иза удружења</h2>
+    </header>
+    <div class="team reveal">
+      {% for item in collections.tim %}
+        {% set c = item %}
+        {% include "components/person-card.njk" %}
+      {% endfor %}
+    </div>
+  </div>
+</section>

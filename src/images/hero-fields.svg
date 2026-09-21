@@ -1,0 +1,59 @@
+<!--
+  hero-fields.svg
+  A landscape drawn with maths instead of a camera. About 2 KB,
+  scales to any screen without blurring, and costs one request.
+  Colours here are deliberately close to the CSS tokens.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 620"
+     preserveAspectRatio="xMidYMax slice" role="img" aria-label="">
+
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0"   stop-color="#0d1f15"/>
+      <stop offset="0.7" stop-color="#16301f"/>
+      <stop offset="1"   stop-color="#1b3a26"/>
+    </linearGradient>
+
+    <!-- Low sun sitting just above the horizon. -->
+    <radialGradient id="sun" cx="0.74" cy="0.66" r="0.42">
+      <stop offset="0"   stop-color="#d9a13a" stop-opacity="0.40"/>
+      <stop offset="0.5" stop-color="#c08a1e" stop-opacity="0.10"/>
+      <stop offset="1"   stop-color="#c08a1e" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Furrow lines fading out as they recede. -->
+    <linearGradient id="furrowFade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0.10"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1440" height="620" fill="url(#sky)"/>
+  <rect width="1440" height="620" fill="url(#sun)"/>
+
+  <!-- Sun disc -->
+  <circle cx="1066" cy="409" r="46" fill="#d9a13a" opacity="0.28"/>
+
+  <!-- Distant ridge -->
+  <path d="M0 432 C 210 404 430 448 660 430 C 900 411 1160 452 1440 424 L1440 620 L0 620 Z"
+        fill="#1a3823"/>
+
+  <!-- Middle field -->
+  <path d="M0 478 C 280 448 520 508 800 484 C 1050 462 1240 498 1440 474 L1440 620 L0 620 Z"
+        fill="#20482b"/>
+
+  <!-- Foreground field -->
+  <path d="M0 534 C 250 508 580 560 880 534 C 1130 512 1300 542 1440 524 L1440 620 L0 620 Z"
+        fill="#2b6339"/>
+
+  <!-- Ploughed furrows converging toward the horizon -->
+  <g stroke="url(#furrowFade)" stroke-width="2" fill="none">
+    <path d="M-120 620 L 560 536"/>
+    <path d="M 120 620 L 640 534"/>
+    <path d="M 380 620 L 726 533"/>
+    <path d="M 660 620 L 812 532"/>
+    <path d="M 940 620 L 900 532"/>
+    <path d="M1220 620 L 990 534"/>
+    <path d="M1500 620 L1080 536"/>
+  </g>
+</svg>
