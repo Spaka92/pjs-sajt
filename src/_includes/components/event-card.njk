@@ -2,7 +2,9 @@
 <article class="edu spotlight">
   {% if d.data.image %}
     <div class="media">
-      <img src="{{ d.data.image }}" alt="{{ d.data.image_alt or '' }}" loading="lazy">
+      <a href="{{ d.url }}" aria-hidden="true" tabindex="-1">
+        <img src="{{ d.data.image }}" alt="{{ d.data.image_alt or '' }}" loading="lazy">
+      </a>
     </div>
   {% endif %}
   <span class="edu__tag">{{ d.data.type }}</span>

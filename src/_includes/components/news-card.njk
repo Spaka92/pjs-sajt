@@ -2,8 +2,10 @@
 <article class="news spotlight tilt">
   {% if v.data.image %}
     <div class="media">
-      <img src="{{ v.data.image }}" alt="{{ v.data.image_alt or '' }}"
-           width="800" height="500" loading="lazy">
+      <a href="{{ v.url }}" aria-hidden="true" tabindex="-1">
+        <img src="{{ v.data.image }}" alt="{{ v.data.image_alt or '' }}"
+             width="800" height="500" loading="lazy">
+      </a>
     </div>
   {% endif %}
   <div class="news__body">
