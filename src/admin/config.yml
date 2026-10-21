@@ -249,7 +249,6 @@ collections:
                   - { name: logo, label: Слика, widget: image }
                   - { name: url, label: Веб адреса, widget: string, required: false }
                   - { name: uspravan, label: Усправан логотип (виши приказ), widget: boolean, required: false }
-                  - { name: veci, label: Већи приказ (ситна слова у логотипу), widget: boolean, required: false }
           - name: partneri_naslov
             label: Наслов изнад партнера
             widget: string

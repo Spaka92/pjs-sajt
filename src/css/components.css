@@ -1079,17 +1079,13 @@
    2.25rem (36px) keeps the twelve stars legible; do not go below
    this without checking the project's visibility guidelines. */
 .funding__logos img {
-  height: 2.75rem;
+  height: 3.5rem;
   width: auto;
 }
 
 /* The stacked PJS logo is portrait, so at the same height it
    would look much smaller than its wide neighbours. */
-.funding__logos .is-tall img { height: 3.5rem; }
-
-/* BOŠ has small lettering next to its mark, which needs more
-   height than the other logos to stay readable. */
-.funding__logos .is-large img { height: 3.5rem; }
+.funding__logos .is-tall img { height: 4.5rem; }
 
 @media (max-width: 40rem) {
   .funding__inner {
@@ -1098,9 +1094,8 @@
   }
   .funding__text { width: 100%; }
   .funding__logos { gap: var(--space-md); }
-  .funding__logos img { height: 1.9rem; }
-  .funding__logos .is-tall img { height: 3rem; }
-  .funding__logos .is-large img { height: 2.4rem; }
+  .funding__logos img { height: 2.4rem; }
+  .funding__logos .is-tall img { height: 3.5rem; }
 }
 
 

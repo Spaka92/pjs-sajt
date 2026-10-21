@@ -19,11 +19,10 @@
       <p class="funding__text">{{ site.finansiranje.tekst }}</p>
     {% endif %}
     {# Order and logos come from site.json. `uspravan` marks a
-       portrait (stacked) logo, which needs more height to read;
-       `veci` shows a logo with small lettering a bit larger. #}
+       portrait (stacked) logo, which needs more height to read. #}
     <ul class="funding__logos">
       {% for f in site.finansiranje.logoi %}
-        <li{% if f.uspravan %} class="is-tall"{% elif f.veci %} class="is-large"{% endif %}>
+        <li{% if f.uspravan %} class="is-tall"{% endif %}>
           {% if f.url %}
             <a href="{{ f.url }}"{% if f.url.startsWith("http") %} target="_blank" rel="noopener"{% endif %}>
               <img src="{{ f.logo }}" alt="{{ f.naziv }}">
