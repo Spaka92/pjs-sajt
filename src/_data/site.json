@@ -74,8 +74,9 @@
     "logoi": [
       {
         "naziv": "БОШ — Београдска отворена школа",
-        "logo": "/images/bos.png",
-        "url": ""
+        "logo": "/images/bos-cirilica.png",
+        "url": "",
+        "veci": true
       },
       {
         "naziv": "ПЈС — Пољопривредници југа Србије",

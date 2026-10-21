@@ -1087,6 +1087,10 @@
    would look much smaller than its wide neighbours. */
 .funding__logos .is-tall img { height: 3.5rem; }
 
+/* BOŠ has small lettering next to its mark, which needs more
+   height than the other logos to stay readable. */
+.funding__logos .is-large img { height: 3.5rem; }
+
 @media (max-width: 40rem) {
   .funding__inner {
     justify-content: center;
@@ -1096,6 +1100,7 @@
   .funding__logos { gap: var(--space-md); }
   .funding__logos img { height: 1.9rem; }
   .funding__logos .is-tall img { height: 3rem; }
+  .funding__logos .is-large img { height: 2.4rem; }
 }
 
 
