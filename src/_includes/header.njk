@@ -2,46 +2,17 @@
    HEADER — built from src/_data/nav.json.
    To change the menu, edit that file (or the CMS), not this one.
    ============================================================ #}
-{# ============================================================
-   ТРАКА ФИНАНСИРАЊА
-   The EU emblem is a grant requirement, not decoration: EU
-   funding rules oblige beneficiaries to display it. So it sits
-   at the very top of every page, above everything else.
-
-   Deliberately NOT sticky — it scrolls away, leaving the slim
-   nav behind. Visibility rules ask for it to be on the page,
-   not permanently pinned over the content.
-   ============================================================ #}
-{% if site.finansiranje and site.finansiranje.logoi %}
-<div class="funding">
-  <div class="container funding__inner">
-    {% if site.finansiranje.tekst %}
-      <p class="funding__text">{{ site.finansiranje.tekst }}</p>
-    {% endif %}
-    {# Order and logos come from site.json. `uspravan` marks a
-       portrait (stacked) logo, which needs more height to read. #}
-    <ul class="funding__logos">
-      {% for f in site.finansiranje.logoi %}
-        <li{% if f.uspravan %} class="is-tall"{% endif %}>
-          {% if f.url %}
-            <a href="{{ f.url }}"{% if f.url.startsWith("http") %} target="_blank" rel="noopener"{% endif %}>
-              <img src="{{ f.logo }}" alt="{{ f.naziv }}">
-            </a>
-          {% else %}
-            <img src="{{ f.logo }}" alt="{{ f.naziv }}">
-          {% endif %}
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
-</div>
-{% endif %}
-
+{# The EU logo and the funding disclaimer live in the footer
+   (see footer.njk). Per the donor's visibility feedback, the
+   only other logo on the site is our own, here in the nav. #}
 <header class="site-header">
   <div class="container nav">
 
-    {# No logo here: the PJS logo sits in the funding bar above,
-       and links home from there. #}
+    <a class="nav__brand" href="/" aria-label="{{ site.naziv }} — почетна">
+      <img src="/images/pjs-logo.png" alt="{{ site.skraceno }} — {{ site.naziv }}"
+           width="900" height="363">
+    </a>
+
     <button class="nav__toggle" type="button"
             aria-expanded="false" aria-controls="site-nav">Мени</button>
 

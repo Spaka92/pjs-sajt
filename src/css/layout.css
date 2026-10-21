@@ -78,14 +78,24 @@
   background: color-mix(in srgb, var(--color-alt) 94%, transparent);
 }
 
-/* No logo in the nav any more (it lives in the funding bar),
-   so the menu sits centered; on phones the toggle goes right. */
+/* PJS logo on the left, menu on the right. */
 .nav {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: var(--space-md);
   min-height: var(--header-height);
+}
+
+.nav__brand {
+  display: block;
+  line-height: 0;
+  flex-shrink: 0;
+}
+
+.nav__brand img {
+  height: 3rem;
+  width: auto;
 }
 
 .nav__list {
@@ -112,7 +122,6 @@
 }
 
 @media (max-width: 52rem) {
-  .nav { justify-content: flex-end; }
   .nav__toggle { display: block; }
 
   .nav__menu {
@@ -542,14 +551,14 @@
    ============================================================ */
 
 
-/* ---------- PJS LOGO IN THE FUNDING BAR ------------------------ */
+/* ---------- PJS LOGO IN THE NAV -------------------------------- */
 
-.funding__logos a img {
+.nav__brand img {
   transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
               filter 0.3s ease;
 }
 
-.funding__logos .is-tall a:hover img {
+.nav__brand:hover img {
   transform: scale(1.04);
   /* A warm halo the colour of the sun in the mark. */
   filter: drop-shadow(0 0 12px rgb(246 198 90 / 0.55));
@@ -628,10 +637,14 @@
 
 /* ---------- FOOTER BRANDING --------------------------------------- */
 
-.site-footer__logo {
-  height: 2.75rem;
-  width: auto;
-  margin-bottom: var(--space-sm);
+/* Name as text, not a logo: the only logos on the site are the
+   PJS logo in the nav and the EU logo in the disclaimer below. */
+.site-footer__name {
+  font-size: var(--text-xl);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--color-on-dark);
+  margin-bottom: var(--space-xs);
 }
 
 

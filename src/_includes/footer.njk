@@ -1,49 +1,11 @@
 {# ============================================================
    FOOTER — contact details come from src/_data/site.json
    ============================================================ #}
-{# ============================================================
-   ПАРТНЕРИ
-   A moving strip above the dark footer. The list is emitted
-   TWICE on purpose: the track slides exactly 50% left, so the
-   second copy arrives where the first began and the loop has
-   no visible seam.
-
-   It pauses on hover so a visitor can actually read a logo
-   they recognise — a marquee you cannot stop is just noise.
-   ============================================================ #}
-{% if site.partneri and site.partneri.length %}
-<section class="partners">
-  <div class="container">
-    <h2 class="partners__title">{{ site.partneri_naslov or "Наши партнери" }}</h2>
-  </div>
-
-  <div class="marquee marquee--partners">
-    <ul class="marquee__track">
-      {% for pass in [1, 2] %}
-        {% for p in site.partneri %}
-          <li class="partners__item">
-            {% if p.url %}
-              <a href="{{ p.url }}" target="_blank" rel="noopener">
-                <img src="{{ p.logo }}" alt="{{ p.naziv }}" loading="lazy">
-              </a>
-            {% else %}
-              <img src="{{ p.logo }}" alt="{{ p.naziv }}" loading="lazy">
-            {% endif %}
-          </li>
-        {% endfor %}
-      {% endfor %}
-    </ul>
-  </div>
-</section>
-{% endif %}
-
 <footer class="site-footer">
   <div class="container site-footer__inner">
 
     <div>
-      <img class="site-footer__logo" src="/images/pjs-logo.png"
-           alt="{{ site.skraceno }} — {{ site.naziv }}"
-           width="900" height="363" loading="lazy">
+      <p class="site-footer__name">{{ site.skraceno }}</p>
       <p class="site-footer__note">
         Удружење грађана<br>{{ site.naziv }}
       </p>
@@ -86,6 +48,20 @@
     </div>
 
   </div>
+
+  {# ============================================================
+     ЕУ ВИДЉИВОСТ
+     The #ЕУ за тебе logo and the funding disclaimer are a grant
+     requirement. The logo sits on a white plate because its blue
+     lettering would vanish against the dark footer.
+     ============================================================ #}
+  {% if site.finansiranje %}
+  <div class="container site-footer__eu">
+    <img class="site-footer__eu-logo" src="{{ site.finansiranje.logo }}"
+         alt="{{ site.finansiranje.naziv }}" width="443" height="120" loading="lazy">
+    <p class="site-footer__disclaimer">{{ site.finansiranje.tekst }}</p>
+  </div>
+  {% endif %}
 
   <div class="container site-footer__bar">
     {# `godina` comes from _data/godina.js, evaluated at build

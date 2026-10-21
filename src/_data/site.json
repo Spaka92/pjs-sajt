@@ -32,62 +32,9 @@
       "opis": "партнера"
     }
   ],
-  "partneri_naslov": "Наши партнери",
-  "partneri": [
-    {
-      "naziv": "Нова планска пракса",
-      "logo": "/images/partneri/nova-planska-praksa.png",
-      "url": ""
-    },
-    {
-      "naziv": "УЦПД — Ужички центар за права детета",
-      "logo": "/images/partneri/ucpd.png",
-      "url": ""
-    },
-    {
-      "naziv": "ENECA",
-      "logo": "/images/partneri/eneca.png",
-      "url": ""
-    },
-    {
-      "naziv": "Новосадска новинарска школа",
-      "logo": "/images/partneri/novosadska-novinarska-skola.png",
-      "url": ""
-    },
-    {
-      "naziv": "МПС — Млади пољопривредници Србије",
-      "logo": "/images/partneri/mps.png",
-      "url": ""
-    },
-    {
-      "naziv": "Friedrich Ebert Stiftung",
-      "logo": "/images/partneri/friedrich-ebert-stiftung.png",
-      "url": ""
-    },
-    {
-      "naziv": "Сигурне стазе",
-      "logo": "/images/partneri/sigurne-staze.png",
-      "url": ""
-    }
-  ],
   "finansiranje": {
-    "logoi": [
-      {
-        "naziv": "БОШ — Београдска отворена школа",
-        "logo": "/images/bos-cirilica.png",
-        "url": ""
-      },
-      {
-        "naziv": "ПЈС — Пољопривредници југа Србије",
-        "logo": "/images/pjs-logo-stacked.png",
-        "url": "/",
-        "uspravan": true
-      },
-      {
-        "naziv": "#ЕУ за тебе — Европска унија",
-        "logo": "/images/eu-za-tebe.png",
-        "url": ""
-      }
-    ]
+    "naziv": "#ЕУ за тебе — Европска унија",
+    "logo": "/images/eu-za-tebe.png",
+    "tekst": "Овај сајт је креиран уз финансијску помоћ Европске уније кроз пројекат „ЕУ Ресурс Центар за цивилно друштво у Србији“. Удружење „Пољопривредници Југа Србије“ је одговорна страна за његов садржај и не одражава нужно ставове Европске уније."
   }
 }

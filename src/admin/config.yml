@@ -234,42 +234,13 @@ collections:
               - { name: broj, label: Број, widget: number, value_type: int }
               - { name: opis, label: Опис, widget: string }
           - name: finansiranje
-            label: Трака финансирања (врх сваке странице)
+            label: ЕУ логотип и одрицање одговорности (подножје)
             widget: object
-            hint: "Приказ логотипа Европске уније је обавеза по правилима пројекта — не уклањајте га без провере."
+            hint: "Приказ логотипа ЕУ и текста одрицања одговорности је обавеза по правилима пројекта — не уклањајте их без провере."
             fields:
-              - { name: tekst, label: Текст, widget: string, required: false }
-              - name: logoi
-                label: Логотипи
-                widget: list
-                label_singular: Логотип
-                summary: "{{naziv}}"
-                fields:
-                  - { name: naziv, label: Назив, widget: string }
-                  - { name: logo, label: Слика, widget: image }
-                  - { name: url, label: Веб адреса, widget: string, required: false }
-                  - { name: uspravan, label: Усправан логотип (виши приказ), widget: boolean, required: false }
-          - name: partneri_naslov
-            label: Наслов изнад партнера
-            widget: string
-            required: false
-          - name: partneri
-            label: Партнери
-            widget: list
-            label_singular: Партнер
-            summary: "{{naziv}}"
-            hint: "Приказују се у покретној траци изнад подножја."
-            fields:
-              - { name: naziv, label: Назив, widget: string }
-              - name: logo
-                label: Логотип
-                widget: image
-                hint: "PNG са провидном позадином, исте висине као остали да однос величина остане тачан."
-              - name: url
-                label: Веб адреса
-                widget: string
-                required: false
-                hint: "Ако унесете, логотип постаје линк ка сајту партнера."
+              - { name: naziv, label: Назив логотипа (alt текст), widget: string }
+              - { name: logo, label: Логотип, widget: image }
+              - { name: tekst, label: Текст одрицања одговорности, widget: text }
 
       - name: nav
         label: Мени

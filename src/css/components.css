@@ -1039,128 +1039,43 @@
 
 
 /* ============================================================
-   ТРАКА ФИНАНСИРАЊА — the EU visibility bar, top of every page
+   ЕУ ВИДЉИВОСТ — logo + disclaimer in the footer
    ============================================================ */
 
-/* Same tone as the header and the partners strip near the
-   footer — the header now echoes that color at both ends of
-   the page instead of the plain page background. */
-.funding {
-  background: var(--color-alt);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.funding__inner {
+.site-footer__eu {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-md);
-  flex-wrap: wrap;
-  padding-block: var(--space-sm);
-}
-
-.funding__text {
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--color-muted);
-}
-
-/* BOŠ — PJS — EU, spread across the full width of the bar. */
-.funding__logos {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   gap: var(--space-lg);
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid rgb(255 255 255 / 0.12);
 }
 
-/* The EU emblem has a minimum-size requirement in the grant rules.
-   2.25rem (36px) keeps the twelve stars legible; do not go below
-   this without checking the project's visibility guidelines. */
-.funding__logos img {
+/* White plate: the logo's blue lettering needs a light ground.
+   The EU emblem has a minimum-size requirement in the grant rules;
+   3.5rem keeps the twelve stars legible — do not go below 2.25rem
+   without checking the project's visibility guidelines. */
+.site-footer__eu-logo {
+  flex-shrink: 0;
   height: 3.5rem;
   width: auto;
+  box-sizing: content-box;
+  padding: 0.6rem 0.8rem;
+  background: #fff;
+  border-radius: var(--radius);
 }
 
-/* The stacked PJS logo is portrait, so at the same height it
-   would look much smaller than its wide neighbours. */
-.funding__logos .is-tall img { height: 4.5rem; }
-
-@media (max-width: 40rem) {
-  .funding__inner {
-    justify-content: center;
-    text-align: center;
-  }
-  .funding__text { width: 100%; }
-  .funding__logos { gap: var(--space-md); }
-  .funding__logos img { height: 2.4rem; }
-  .funding__logos .is-tall img { height: 3.5rem; }
-}
-
-
-/* ============================================================
-   ПАРТНЕРИ — moving strip above the dark footer
-   ============================================================ */
-
-.partners {
-  background: var(--color-alt);
-  border-top: 1px solid var(--color-border);
-  padding-block: var(--space-xl);
-}
-
-.partners__title {
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-muted);
-  text-align: center;
-  margin-bottom: var(--space-lg);
-}
-
-/* Slower than the old placeholder marquee: these logos carry
-   readable text, so they need longer on screen to be legible. */
-.marquee--partners .marquee__track {
-  align-items: center;
-  gap: var(--space-2xl);
-  animation-duration: 46s;
-}
-
-.partners__item {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-}
-
-.partners__item a { display: block; line-height: 0; }
-
-/* Every logo was cut at the same full height from the supplied
-   strip, so one height here reproduces exactly the relative
-   sizing the designer balanced between them. */
-.partners__item img {
-  height: 7rem;
-  width: auto;
-  opacity: 0.85;
-  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.partners__item img:hover {
-  opacity: 1;
-  transform: scale(1.04);
+.site-footer__disclaimer {
+  color: var(--color-on-dark-muted);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  max-width: 70ch;
 }
 
 @media (max-width: 40rem) {
-  .partners__item img { height: 4.75rem; }
-  .marquee--partners .marquee__track {
-    gap: var(--space-xl);
-    animation-duration: 34s;
+  .site-footer__eu {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md);
   }
-}
-
-/* With motion off the strip stops and becomes a manual scroller,
-   so nothing is unreachable. */
-@media (prefers-reduced-motion: reduce) {
-  .marquee--partners .marquee__track { animation: none; }
-  .partners__item img { transition: none; transform: none; }
 }
