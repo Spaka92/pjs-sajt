@@ -71,16 +71,21 @@
     }
   ],
   "finansiranje": {
-    "tekst": "Пројекат финансира Европска унија",
     "logoi": [
-      {
-        "naziv": "#ЕУ за тебе — Европска унија",
-        "logo": "/images/eu-za-tebe.png",
-        "url": ""
-      },
       {
         "naziv": "БОШ — Београдска отворена школа",
         "logo": "/images/bos.png",
+        "url": ""
+      },
+      {
+        "naziv": "ПЈС — Пољопривредници југа Србије",
+        "logo": "/images/pjs-logo-stacked.png",
+        "url": "/",
+        "uspravan": true
+      },
+      {
+        "naziv": "#ЕУ за тебе — Европска унија",
+        "logo": "/images/eu-za-tebe.png",
         "url": ""
       }
     ]

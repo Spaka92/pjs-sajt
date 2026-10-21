@@ -15,12 +15,16 @@
 {% if site.finansiranje and site.finansiranje.logoi %}
 <div class="funding">
   <div class="container funding__inner">
-    <p class="funding__text">{{ site.finansiranje.tekst }}</p>
+    {% if site.finansiranje.tekst %}
+      <p class="funding__text">{{ site.finansiranje.tekst }}</p>
+    {% endif %}
+    {# Order and logos come from site.json. `uspravan` marks a
+       portrait (stacked) logo, which needs more height to read. #}
     <ul class="funding__logos">
       {% for f in site.finansiranje.logoi %}
-        <li>
+        <li{% if f.uspravan %} class="is-tall"{% endif %}>
           {% if f.url %}
-            <a href="{{ f.url }}" target="_blank" rel="noopener">
+            <a href="{{ f.url }}"{% if f.url.startsWith("http") %} target="_blank" rel="noopener"{% endif %}>
               <img src="{{ f.logo }}" alt="{{ f.naziv }}">
             </a>
           {% else %}
@@ -36,12 +40,8 @@
 <header class="site-header">
   <div class="container nav">
 
-    <a class="nav__logo" href="/">
-      <img src="/images/pjs-logo.png"
-           alt="{{ site.skraceno }} — {{ site.naziv }}"
-           width="900" height="363">
-    </a>
-
+    {# No logo here: the PJS logo sits in the funding bar above,
+       and links home from there. #}
     <button class="nav__toggle" type="button"
             aria-expanded="false" aria-controls="site-nav">Мени</button>
 

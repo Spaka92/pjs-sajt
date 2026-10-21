@@ -238,7 +238,7 @@ collections:
             widget: object
             hint: "Приказ логотипа Европске уније је обавеза по правилима пројекта — не уклањајте га без провере."
             fields:
-              - { name: tekst, label: Текст, widget: string }
+              - { name: tekst, label: Текст, widget: string, required: false }
               - name: logoi
                 label: Логотипи
                 widget: list
@@ -248,6 +248,7 @@ collections:
                   - { name: naziv, label: Назив, widget: string }
                   - { name: logo, label: Слика, widget: image }
                   - { name: url, label: Веб адреса, widget: string, required: false }
+                  - { name: uspravan, label: Усправан логотип (виши приказ), widget: boolean, required: false }
           - name: partneri_naslov
             label: Наслов изнад партнера
             widget: string

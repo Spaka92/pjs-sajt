@@ -6,21 +6,6 @@
    ============================================================ */
 
 
-/* ---------- WORDMARK ------------------------------------------ */
-
-.nav__logo {
-  font-weight: 800;
-  font-size: var(--text-lg);
-  letter-spacing: -0.03em;
-  text-decoration: none;
-}
-
-.nav__logo span {
-  color: var(--color-accent);
-  margin-left: 0.3em;
-}
-
-
 /* ---------- BUTTON -------------------------------------------- */
 
 .btn {
@@ -1081,9 +1066,12 @@
   color: var(--color-muted);
 }
 
+/* BOŠ — PJS — EU, spread across the full width of the bar. */
 .funding__logos {
+  flex: 1;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: var(--space-lg);
 }
 
@@ -1091,9 +1079,13 @@
    2.25rem (36px) keeps the twelve stars legible; do not go below
    this without checking the project's visibility guidelines. */
 .funding__logos img {
-  height: 2.25rem;
+  height: 2.75rem;
   width: auto;
 }
+
+/* The stacked PJS logo is portrait, so at the same height it
+   would look much smaller than its wide neighbours. */
+.funding__logos .is-tall img { height: 3.5rem; }
 
 @media (max-width: 40rem) {
   .funding__inner {
@@ -1103,6 +1095,7 @@
   .funding__text { width: 100%; }
   .funding__logos { gap: var(--space-md); }
   .funding__logos img { height: 1.9rem; }
+  .funding__logos .is-tall img { height: 3rem; }
 }
 
 
