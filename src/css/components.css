@@ -1052,15 +1052,19 @@
 }
 
 /* White plate: the logo's blue lettering needs a light ground.
-   The EU emblem has a minimum-size requirement in the grant rules;
-   3.5rem keeps the twelve stars legible — do not go below 2.25rem
-   without checking the project's visibility guidelines. */
+   The plate is 3.5rem tall. Inside it, the brand sheet's clear space
+   (the width of the letter Е, 0.24 × logo height) on every side, so
+   the logo itself is 3.5 / 1.48 ≈ 2.36rem tall.
+   The EU emblem has a minimum-size requirement in the grant rules —
+   do not let the logo go below 2.25rem without checking the
+   project's visibility guidelines. */
 .site-footer__eu-logo {
+  --eu-logo-h: calc(3.5rem / 1.48);
   flex-shrink: 0;
-  height: 3.5rem;
+  height: var(--eu-logo-h);
   width: auto;
   box-sizing: content-box;
-  padding: 0.6rem 0.8rem;
+  padding: calc(var(--eu-logo-h) * 0.24);
   background: #fff;
   border-radius: var(--radius);
 }
