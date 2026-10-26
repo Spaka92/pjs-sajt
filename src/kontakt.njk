@@ -48,8 +48,7 @@ opisStranice: "Контакт подаци Удружења грађана По�
           {{ site.naziv }}<br><br>
           {{ site.adresa }}<br>
           {% if site.telefon %}<a href="tel:{{ site.telefon | replace(" ", "") }}">{{ site.telefon }}</a><br>{% endif %}
-          <a href="mailto:{{ site.email }}">{{ site.email }}</a><br>
-          {{ site.radno_vreme }}
+          <a href="mailto:{{ site.email }}">{{ site.email }}</a>
         </p>
 
         {% if site.facebook or site.instagram or site.youtube %}

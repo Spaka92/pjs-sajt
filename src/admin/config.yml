@@ -216,7 +216,6 @@ collections:
           - { name: adresa, label: Адреса, widget: string }
           - { name: telefon, label: Телефон, widget: string, required: false }
           - { name: email, label: Имејл, widget: string }
-          - { name: radno_vreme, label: Радно време, widget: string }
           - { name: facebook, label: Facebook, widget: string, required: false }
           - { name: instagram, label: Instagram, widget: string, required: false }
           - { name: youtube, label: YouTube, widget: string, required: false }
