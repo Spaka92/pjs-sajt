@@ -1069,7 +1069,6 @@
   object-fit: contain;
   object-position: center;
   background: #fff;
-  border-radius: var(--radius);
 }
 
 .site-footer__disclaimer {
