@@ -1052,29 +1052,24 @@
 }
 
 /* White plate: the logo's blue lettering needs a light ground.
-   The padding is 0.4 × logo height on every side — more than the
-   brand sheet's minimum clear space (the width of the letter Е,
-   0.24 × logo height), at the funder's request for a roomier plate.
-   The logo is 2.6rem tall on phones and 3rem from 40rem up, where
-   it otherwise read smaller than on a phone.
+   One fixed-size plate (14 × 6rem) on every screen, with the logo
+   centered in it via object-fit. The logo is 3rem tall, which leaves
+   about 1.5rem of white on every side — well over the brand sheet's
+   minimum clear space (the width of the letter Е, 0.24 × logo
+   height), at the funder's request for a roomier plate.
    The EU emblem has a minimum-size requirement in the grant rules —
    do not let the logo go below 2.25rem without checking the
    project's visibility guidelines. */
 .site-footer__eu-logo {
-  --eu-logo-h: 2.6rem;
   flex-shrink: 0;
-  height: var(--eu-logo-h);
-  width: auto;
-  box-sizing: content-box;
-  padding: calc(var(--eu-logo-h) * 0.4);
+  width: 14rem;
+  height: 6rem;
+  box-sizing: border-box;
+  padding: 1.5rem 1rem;
+  object-fit: contain;
+  object-position: center;
   background: #fff;
   border-radius: var(--radius);
-}
-
-@media (min-width: 40rem) {
-  .site-footer__eu-logo {
-    --eu-logo-h: 3rem;
-  }
 }
 
 .site-footer__disclaimer {
