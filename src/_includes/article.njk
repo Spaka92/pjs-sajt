@@ -50,6 +50,30 @@ layout: base.njk
       {{ content | safe }}
     </div>
 
+    {# A PDF shown open on the page. Desktop browsers draw it in the
+       <object>; phones (Android Chrome especially) cannot, and show
+       the fallback inside it instead — so the fallback is a proper
+       card with buttons, not an error message. #}
+    {% if pdf %}
+      <figure class="pdf-embed">
+        <object class="pdf-embed__frame" data="{{ pdf }}#view=FitH" type="application/pdf"
+                aria-label="{{ pdf_title or title }}">
+          <div class="pdf-embed__fallback">
+            <p><strong>{{ pdf_title or title }}</strong></p>
+            <p>Ваш уређај не може да прикаже документ унутар стране. Отворите га или преузмите.</p>
+            <p><a class="btn" href="{{ pdf }}" target="_blank" rel="noopener">Отворите PDF</a></p>
+          </div>
+        </object>
+        <figcaption class="pdf-embed__bar">
+          <span>{{ pdf_title or title }} (PDF)</span>
+          <span class="pdf-embed__actions">
+            <a class="news__link" href="{{ pdf }}" target="_blank" rel="noopener">Отворите у новом прозору</a>
+            <a class="news__link" href="{{ pdf }}" download>Преузмите</a>
+          </span>
+        </figcaption>
+      </figure>
+    {% endif %}
+
     {% if registration_url %}
       <p style="margin-top: var(--space-xl)">
         <a class="btn magnetic" href="{{ registration_url }}">Пријавите се</a>

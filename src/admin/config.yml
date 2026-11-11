@@ -64,6 +64,16 @@ collections:
         default: true
         required: false
       - { name: body, label: Текст вести, widget: markdown }
+      - name: pdf
+        label: PDF документ
+        widget: file
+        required: false
+        hint: "Није обавезно. PDF се приказује отворен испод текста вести, са дугметом за преузимање."
+      - name: pdf_title
+        label: Назив PDF документа
+        widget: string
+        required: false
+        hint: "Нпр. „Комуникациона стратегија 2026–2029“. Ако остане празно, користи се наслов вести."
 
   # ----------------------------------------------------------
   # ДОГАЂАЈИ
