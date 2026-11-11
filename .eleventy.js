@@ -99,17 +99,34 @@ module.exports = function (eleventyConfig) {
      templates readable and the logic in one place.
      ----------------------------------------------------------- */
 
+  /* Dates in front matter are written in quotes ("2026-07-18"), so
+     item.data.date is a STRING, and subtracting two strings gives
+     NaN — which silently scrambles any sort. Always turn a date
+     into milliseconds through this helper before comparing. A
+     missing or unreadable date counts as `fallback`. */
+  function ms(value, fallback) {
+    if (!value) return fallback;
+    const t = new Date(value).getTime();
+    return isNaN(t) ? fallback : t;
+  }
+
+  // Newest first. Two posts on the same day: the later file name
+  // wins, so the order never depends on how the disk lists files.
+  function najnovijePrvo(a, b) {
+    return (ms(b.data.date, 0) - ms(a.data.date, 0))
+      || b.inputPath.localeCompare(a.inputPath);
+  }
+
   // Вести — newest first
   eleventyConfig.addCollection("vesti", function (api) {
-    return api.getFilteredByGlob("src/vesti/*.md")
-      .sort((a, b) => b.data.date - a.data.date);
+    return api.getFilteredByGlob("src/vesti/*.md").sort(najnovijePrvo);
   });
 
   // Вести marked for the homepage
   eleventyConfig.addCollection("vestiIstaknute", function (api) {
     return api.getFilteredByGlob("src/vesti/*.md")
       .filter(item => item.data.featured)
-      .sort((a, b) => b.data.date - a.data.date);
+      .sort(najnovijePrvo);
   });
 
   /* Догађаји split themselves into upcoming and past by comparing
@@ -120,19 +137,18 @@ module.exports = function (eleventyConfig) {
     const sada = new Date();
     return api.getFilteredByGlob("src/dogadjaji/*.md")
       .filter(item => new Date(item.data.end_date || item.data.date) >= sada)
-      .sort((a, b) => a.data.date - b.data.date);   // soonest first
+      .sort((a, b) => ms(a.data.date, 0) - ms(b.data.date, 0));   // soonest first
   });
 
   eleventyConfig.addCollection("dogadjajiProsli", function (api) {
     const sada = new Date();
     return api.getFilteredByGlob("src/dogadjaji/*.md")
       .filter(item => new Date(item.data.end_date || item.data.date) < sada)
-      .sort((a, b) => b.data.date - a.data.date);   // most recent first
+      .sort(najnovijePrvo);   // most recent first
   });
 
   eleventyConfig.addCollection("edukacije", function (api) {
-    return api.getFilteredByGlob("src/edukacije/*.md")
-      .sort((a, b) => (b.data.date || 0) - (a.data.date || 0));
+    return api.getFilteredByGlob("src/edukacije/*.md").sort(najnovijePrvo);
   });
 
   /* Конкурси: open ones first, then the rest. Within each group,
@@ -144,7 +160,7 @@ module.exports = function (eleventyConfig) {
       .sort((a, b) => {
         const r = (rang[a.data.status] ?? 3) - (rang[b.data.status] ?? 3);
         if (r !== 0) return r;
-        return (a.data.deadline || Infinity) - (b.data.deadline || Infinity);
+        return ms(a.data.deadline, Infinity) - ms(b.data.deadline, Infinity);
       });
   });
 

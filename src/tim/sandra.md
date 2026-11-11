@@ -2,7 +2,7 @@
 name: "Сандра"
 role: "Саветник"
 speciality: "Фитофармацеут — дијагностика и савети"
-photo: "https://randomuser.me/api/portraits/women/68.jpg"
+photo: "/images/uploads/sandra.webp"
 email: ""
 phone: ""
 order: 5

@@ -2,7 +2,7 @@
 name: "Стефан"
 role: "Потпредседник"
 speciality: "Логистика — члан пројектног тима"
-photo: "https://randomuser.me/api/portraits/men/32.jpg"
+photo: "/images/uploads/stefan.webp"
 email: ""
 phone: ""
 order: 2
