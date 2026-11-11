@@ -1,7 +1,7 @@
 ---
 name: "Стефан"
 role: "Потпредседник"
-speciality: "Логистика — члан пројектног тима"
+speciality: "Заштита биља — болести и штеточине, анализа земљишта, администрација"
 photo: "/images/uploads/stefan.webp"
 email: ""
 phone: ""

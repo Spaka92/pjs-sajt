@@ -329,43 +329,10 @@ function setUpTilt() {
 }
 
 
-/* ---------- 12. MAGNETIC BUTTONS ------------------------------
-   Buttons drift a few pixels toward the pointer while it is near.
-   The whole effect is 8 pixels. Any more and it feels broken.
+/* ---------- 12. (removed) MAGNETIC BUTTONS -------------------
+   Buttons used to drift toward the cursor. Replaced by a plain
+   CSS scale on hover — see .btn:hover in components.css.
    ----------------------------------------------------------- */
-
-const MAGNET_STRENGTH = 0.28;   // fraction of the distance
-const MAGNET_MAX = 8;           // pixels, hard cap
-
-function setUpMagneticButtons() {
-  const buttons = document.querySelectorAll(".magnetic");
-  if (buttons.length === 0) return;
-
-  if (!window.matchMedia("(hover: hover)").matches) return;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-  function clamp(value, limit) {
-    return Math.max(-limit, Math.min(limit, value));
-  }
-
-  buttons.forEach(function (button) {
-    button.addEventListener("pointermove", function (event) {
-      const box = button.getBoundingClientRect();
-      const dx = event.clientX - (box.left + box.width / 2);
-      const dy = event.clientY - (box.top + box.height / 2);
-
-      button.style.setProperty("--pull-x", clamp(dx * MAGNET_STRENGTH, MAGNET_MAX).toFixed(1) + "px");
-      button.style.setProperty("--pull-y", clamp(dy * MAGNET_STRENGTH, MAGNET_MAX).toFixed(1) + "px");
-      button.classList.add("is-pulled");
-    });
-
-    button.addEventListener("pointerleave", function () {
-      button.style.setProperty("--pull-x", "0px");
-      button.style.setProperty("--pull-y", "0px");
-      button.classList.remove("is-pulled");   // springs back
-    });
-  });
-}
 
 
 /* ---------- 13. HERO DEPTH + MOVING SUN -----------------------
@@ -504,7 +471,6 @@ function init() {
   setUpSpotlight();
   setUpImageFallbacks();
   setUpTilt();
-  setUpMagneticButtons();
   setUpHeroDepth();
   setUpBioPopups();
 }

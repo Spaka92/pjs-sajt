@@ -52,13 +52,20 @@ opisStranice: "Стручна предавања, радионице, терен
             <a class="news__link" href="{{ item.url }}">Отворите</a>
           </p>
         </article>
+      {% else %}
+        {# Shown only while src/edukacije/ has no materials. Disappears
+           by itself as soon as the first one is added. #}
+        <article class="edu">
+          <span class="edu__tag">Ускоро</span>
+          <h3 class="edu__title">Материјали стижу ускоро</h3>
+          <p>Приручнике, видео едукације и снимке предавања објављиваћемо овде.</p>
+        </article>
       {% endfor %}
     </div>
   </div>
 </section>
 
 {% set prosli = collections.dogadjajiProsli %}
-{% if prosli.length %}
 <section class="section">
   <div class="container">
     <header class="section__head reveal">
@@ -72,8 +79,14 @@ opisStranice: "Стручна предавања, радионице, терен
       {% for item in prosli | limit(6) %}
         {% set d = item %}
         {% include "components/event-card.njk" %}
+      {% else %}
+        {# Shown only while no event has taken place yet. #}
+        <article class="edu">
+          <span class="edu__tag">Ускоро</span>
+          <h3 class="edu__title">Архива се ускоро попуњава</h3>
+          <p>Овде ће се приказивати предавања, радионице и обуке које смо одржали.</p>
+        </article>
       {% endfor %}
     </div>
   </div>
 </section>
-{% endif %}

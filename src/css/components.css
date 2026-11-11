@@ -21,16 +21,22 @@
   font-weight: 700;
   text-decoration: none;
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.15s ease;
 }
 
+/* A small, calm grow on hover — no drifting toward the cursor. */
 .btn:hover {
-  transform: translateY(-2px);
+  transform: scale(1.04);
   box-shadow: var(--shadow-lift);
 }
 
 .btn:active {
-  transform: translateY(0);
+  transform: scale(0.98);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn:hover,
+  .btn:active { transform: none; }
 }
 
 .btn--ghost {
@@ -584,32 +590,6 @@
 }
 
 
-/* ---------- MAGNETIC BUTTON --------------------------------------
-   The button drifts a few pixels toward the pointer as it nears.
-   Keep the pull tiny - past about 8px it feels broken, not alive.
-   ---------------------------------------------------------------- */
-
-.magnetic {
-  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
-              box-shadow 0.2s ease;
-  will-change: transform;
-}
-
-.magnetic.is-pulled {
-  transition: transform 0.08s linear, box-shadow 0.2s ease;
-}
-
-/* The pull is written into --pull-x / --pull-y by JavaScript. */
-.btn.magnetic {
-  transform: translate(var(--pull-x, 0px), var(--pull-y, 0px));
-}
-
-.btn.magnetic:hover {
-  transform: translate(var(--pull-x, 0px), calc(var(--pull-y, 0px) - 2px));
-  box-shadow: var(--shadow-lift);
-}
-
-
 /* ---------- PROMISE ROW HOVER -------------------------------------- */
 
 .promises li {
@@ -706,8 +686,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .tilt,
-  .magnetic,
-  .btn.magnetic,
   .promises li,
   .logo {
     transform: none !important;

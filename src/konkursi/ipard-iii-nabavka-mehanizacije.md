@@ -2,7 +2,7 @@
 title: "IPARD III — набавка механизације"
 source: "IPARD"
 deadline: "2026-10-15"
-status: "Отворен"
+status: "Затворен"
 summary: "Суфинансирање набавке трактора и прикључних машина."
 external_url: ""
 ---
