@@ -449,6 +449,42 @@ function setUpHeroDepth() {
 }
 
 
+/* ---------- 14. TEAM BIOGRAPHY POPUP --------------------------
+   Each team card holds its own <dialog>. We only wire three
+   things: open on card click, close on ×, close on a click on
+   the dark backdrop. Escape is handled by the browser itself.
+   ----------------------------------------------------------- */
+
+function setUpBioPopups() {
+  const openers = document.querySelectorAll("[data-opens]");
+  if (openers.length === 0) return;
+
+  openers.forEach(function (button) {
+    const dialog = document.getElementById(button.dataset.opens);
+    if (!dialog || typeof dialog.showModal !== "function") return;
+
+    button.addEventListener("click", function () {
+      dialog.showModal();
+    });
+
+    dialog.querySelector("[data-closes]").addEventListener("click", function () {
+      dialog.close();
+    });
+
+    // A click that lands on the dialog element itself (not on
+    // anything inside it) can only be a click on the backdrop.
+    dialog.addEventListener("click", function (event) {
+      if (event.target === dialog) dialog.close();
+    });
+
+    // Return focus to the card the person came from.
+    dialog.addEventListener("close", function () {
+      button.focus({ preventScroll: true });
+    });
+  });
+}
+
+
 /* ---------- START ----------------------------------------------
    Everything on the page already exists when this runs. Eleventy
    builds complete HTML, so there is nothing to wait for and
@@ -470,6 +506,7 @@ function init() {
   setUpTilt();
   setUpMagneticButtons();
   setUpHeroDepth();
+  setUpBioPopups();
 }
 
 init();

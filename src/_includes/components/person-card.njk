@@ -1,4 +1,10 @@
-{# One team member. Called with: {% set c = item %} #}
+{# One team member. Called with: {% set c = item %}
+   The card itself stays short. Clicking anywhere on it opens the
+   <dialog> below, which holds the full biography. The dialog lives
+   inside the card so each person's text sits next to their card in
+   the HTML — no JavaScript lookups, no data copied around. #}
+{% set bio = c.templateContent | cist %}
+{% set dialogId = "bio-" + c.fileSlug %}
 <article class="person spotlight">
   <div class="person__photo">
     {% if c.data.photo %}
@@ -9,9 +15,46 @@
     {% endif %}
   </div>
   <div class="person__body">
-    <h3 class="person__name">{{ c.data.name }}</h3>
+    <h3 class="person__name">
+      {# This button's ::after stretches over the whole card, so the
+         photo and the text are all one click target. #}
+      <button type="button" class="person__open" data-opens="{{ dialogId }}" aria-haspopup="dialog">
+        {{ c.data.name }}
+      </button>
+    </h3>
     <p class="person__role">{{ c.data.role }}</p>
     {% if c.data.speciality %}<p class="person__field">{{ c.data.speciality }}</p>{% endif %}
-    {% if c.templateContent %}<div class="person__bio">{{ c.templateContent | safe }}</div>{% endif %}
+    <p class="person__more" aria-hidden="true">Биографија &rarr;</p>
   </div>
+
+  <dialog class="bio-modal" id="{{ dialogId }}" aria-labelledby="{{ dialogId }}-name">
+    <button type="button" class="bio-modal__close" data-closes aria-label="Затвори">&times;</button>
+    <div class="bio-modal__photo">
+      {% if c.data.photo %}
+        <img src="{{ c.data.photo }}" alt="{{ c.data.name }}" loading="lazy">
+      {% else %}
+        <span class="person__initial">{{ c.data.name | first }}</span>
+      {% endif %}
+    </div>
+    <div class="bio-modal__body">
+      <h3 class="bio-modal__name" id="{{ dialogId }}-name">{{ c.data.name }}</h3>
+      <p class="person__role">{{ c.data.role }}</p>
+      {% if c.data.speciality %}<p class="person__field">{{ c.data.speciality }}</p>{% endif %}
+
+      <div class="bio-modal__text prose">
+        {% if bio %}
+          {{ c.templateContent | safe }}
+        {% else %}
+          <p class="bio-modal__empty">Биографија ће ускоро бити објављена.</p>
+        {% endif %}
+      </div>
+
+      {% if c.data.email or c.data.phone %}
+        <ul class="bio-modal__contact">
+          {% if c.data.email %}<li><a href="mailto:{{ c.data.email }}">{{ c.data.email }}</a></li>{% endif %}
+          {% if c.data.phone %}<li><a href="tel:{{ c.data.phone | replace(' ', '') }}">{{ c.data.phone }}</a></li>{% endif %}
+        </ul>
+      {% endif %}
+    </div>
+  </dialog>
 </article>

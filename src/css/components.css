@@ -905,11 +905,146 @@
   margin-top: var(--space-xs);
 }
 
-.person__bio {
-  color: var(--color-muted);
-  font-size: var(--text-sm);
-  margin-top: var(--space-sm);
+/* The name is a button whose ::after covers the whole card, so a
+   click on the photo opens the biography too. The button keeps
+   looking like a heading. */
+.person { transition: box-shadow 0.25s ease, transform 0.25s ease; }
+
+.person:hover { box-shadow: var(--shadow-lift); }
+
+.person__open {
+  all: unset;
+  cursor: pointer;
 }
+
+.person__open::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+.person__open:focus-visible::after {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.person__more {
+  color: var(--brand-green);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  margin-top: var(--space-sm);
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+
+.person:hover .person__more { opacity: 1; }
+
+
+/* ---------- BIOGRAPHY POPUP -----------------------------------
+   A native <dialog>. showModal() puts it above everything else,
+   traps focus, and closes on Escape for free.
+   --------------------------------------------------------------- */
+
+.bio-modal {
+  width: min(44rem, calc(100vw - 2rem));
+  max-height: calc(100dvh - 2rem);
+  margin: auto;            /* base.css zeroes every margin; this re-centres it */
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  box-shadow: var(--shadow-lift);
+  overflow: auto;
+}
+
+.bio-modal[open] {
+  display: grid;
+  grid-template-columns: 15rem 1fr;
+  animation: bio-in 0.22s ease-out;
+}
+
+.bio-modal::backdrop {
+  background: rgb(20 26 15 / 0.55);
+  backdrop-filter: blur(3px);
+}
+
+@keyframes bio-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to   { opacity: 1; transform: none; }
+}
+
+.bio-modal__photo {
+  display: grid;
+  place-items: center;
+  background: var(--color-alt);
+  min-height: 15rem;
+}
+
+.bio-modal__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bio-modal__body { padding: var(--space-lg); }
+
+.bio-modal__name {
+  font-size: var(--text-xl);
+  padding-right: 2.5rem;   /* room for the close button */
+}
+
+.bio-modal__text {
+  margin-top: var(--space-md);
+  font-size: var(--text-base);
+}
+
+.bio-modal__empty {
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+.bio-modal__contact {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--space-md);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.bio-modal__contact a { color: var(--brand-green); }
+
+.bio-modal__close {
+  position: absolute;
+  top: var(--space-xs);
+  right: var(--space-xs);
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+.bio-modal__close:hover { background: var(--color-alt); }
+
+@media (max-width: 40rem) {
+  .bio-modal[open] { grid-template-columns: 1fr; }
+  .bio-modal__photo { aspect-ratio: 4 / 3; min-height: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bio-modal[open] { animation: none; }
+}
+
+/* Stops the page behind the popup from scrolling. */
+html:has(.bio-modal[open]) { overflow: hidden; }
 
 
 /* ============================================================
