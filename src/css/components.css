@@ -1042,14 +1042,22 @@
   to   { opacity: 1; transform: none; }
 }
 
+/* The frame decides its own size; the photo is laid over it and
+   clipped. With the image in normal flow and height:100%, Safari on
+   iPhone gave the frame no height and let the photo spill over the
+   biography text. */
 .bio-modal__photo {
+  position: relative;
   display: grid;
   place-items: center;
   background: var(--color-alt);
   min-height: 15rem;
+  overflow: hidden;
 }
 
 .bio-modal__photo img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -1101,9 +1109,20 @@
 
 .bio-modal__close:hover { background: var(--color-alt); }
 
+/* Phones: plain stacking — photo on top, text starting below it.
+   The × sticks to the top while a long biography is scrolled, so
+   the popup can always be closed (phones have no Escape key). The
+   negative bottom margin lets the photo slide up underneath it. */
 @media (max-width: 40rem) {
-  .bio-modal[open] { grid-template-columns: 1fr; }
+  .bio-modal[open] { display: block; }
   .bio-modal__photo { aspect-ratio: 4 / 3; min-height: 0; }
+
+  .bio-modal__close {
+    position: sticky;
+    z-index: 2;
+    display: block;
+    margin: var(--space-xs) var(--space-xs) calc(-2.5rem - var(--space-xs)) auto;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
