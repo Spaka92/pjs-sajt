@@ -9,8 +9,11 @@
   <div class="container nav">
 
     <a class="nav__brand" href="/" aria-label="{{ site.naziv }} — почетна">
-      <img src="/images/pjs-logo.png" alt="{{ site.skraceno }} — {{ site.naziv }}"
-           width="900" height="363">
+      {# pjs-logo-nav.png is pjs-logo.png without the small tagline
+         under ПЈС — at 3rem tall it was too small to read. The full
+         name is still in the alt text and the aria-label. #}
+      <img src="/images/pjs-logo-nav.png" alt="{{ site.skraceno }} — {{ site.naziv }}"
+           width="891" height="326">
     </a>
 
     <button class="nav__toggle" type="button"
